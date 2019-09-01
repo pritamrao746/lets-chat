@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
+    tools:context=".StartActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/welcome_to_lets_chat_app"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/start_reg_btn"
+        android:layout_width="291dp"
+        android:layout_height="59dp"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:backgroundTint="@android:color/white"
+        android:onClick="newAccount"
+        android:text="@string/need_a_new_account"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/start_login_btn"
+        android:layout_width="290dp"
+        android:layout_height="58dp"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/colorAccent"
+        android:onClick="loginPage"
+        android:text="@string/alreday_have_an_account"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+</RelativeLayout>
