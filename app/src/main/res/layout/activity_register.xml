@@ -57,7 +57,7 @@
         android:layout_height="54dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="210dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/create_account"
         android:textColor="@android:color/white"
         android:textSize="14sp"
