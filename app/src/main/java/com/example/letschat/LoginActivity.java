@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginUser(email,password);
                 }
                 else{
-                    Toast.makeText(LoginActivity.this,"Please Enter Valid Input",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Please Enter Valid Input",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 else{
 
                     mLoginProgress.hide();
-                    Toast.makeText(LoginActivity.this, "Cannot sign in please check the email or password !!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Cannot sign in please check the email or password !!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
