@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginUser(email,password);
                 }
                 else{
-                    Toast.makeText(LoginActivity.this,"Please Enter Valid Input",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Please Enter Valid Input !!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
