@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                      registerUser(stringName,stringEmail,stringPass);
                  }else {
 
-                     Toast.makeText(RegisterActivity.this,"Please Enter Valid Input and Credentials !!",Toast.LENGTH_LONG).show();
+                     Toast.makeText(RegisterActivity.this,"Please Enter Valid Input and Credentials !!",Toast.LENGTH_SHORT).show();
                  }
 
              }
