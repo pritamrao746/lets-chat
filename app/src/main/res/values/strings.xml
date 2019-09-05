@@ -20,5 +20,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="friends_page">Friends Page</string>
+    <string name="change_image">CHANGE IMAGE</string>
+    <string name="change_status">CHANGE STATUS</string>
+    <string name="display_name">Display Name</string>
+    <string name="default_status">Hii,i am using chat app</string>
+    <string name="save_change">Save Changes</string>
+    <string name="your_status">your status</string>
 
 </resources>

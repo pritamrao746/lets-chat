@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#009688"
+        android:backgroundTint="@color/colorAccent"
         android:onClick="loginPage"
         android:text="@string/alreday_have_an_account"
         android:textColor="@android:color/white"

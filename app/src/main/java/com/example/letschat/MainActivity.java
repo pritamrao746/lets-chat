@@ -90,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
              sendToStart();
 
          }
+         if(item.getItemId()==R.id.main_settings_btn){
+             Intent settingIntent = new Intent(MainActivity.this,settingsActivity.class);
+             startActivity(settingIntent);
+             finish();
+         }
 
 
         return true;
