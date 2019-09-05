@@ -35,6 +35,10 @@ public class settingsActivity extends AppCompatActivity {
 
     /////
     private Button changeStatusButton;
+    private Button changeImageButton;
+
+    private static final int GALLERY_PICK=1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class settingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         changeStatusButton=(Button)findViewById(R.id.setting_change_status_button);
+        changeImageButton =(Button)findViewById(R.id.setting_change_image_button);
 
 
         userImage =(CircleImageView) findViewById(R.id.user_display_image);
@@ -87,10 +92,27 @@ public class settingsActivity extends AppCompatActivity {
                 Intent statusIntent =new Intent(settingsActivity.this,StatusActivity.class);
                 startActivity(statusIntent);
 
+
             }
+
+
+
+
         });
 
+        changeImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent galleryIntent =new Intent();
+                galleryIntent.setType("images");
 
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(galleryIntent,"Select Image"),GALLERY_PICK);
+
+
+            }
+
+        });
 
     }
 
