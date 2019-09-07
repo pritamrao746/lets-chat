@@ -12,10 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".settingsActivity"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".settingsActivity" />
+        <activity android:name=".settingsActivity"
+                android:parentActivityName=".MainActivity" />
+
         <activity
             android:name=".StatusActivity"
             android:parentActivityName=".settingsActivity" />
