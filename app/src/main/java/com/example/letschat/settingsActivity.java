@@ -89,7 +89,7 @@ public class settingsActivity extends AppCompatActivity {
 
 
         ///uid of current user
-       current_user= FirebaseAuth.getInstance().getCurrentUser();
+        current_user= FirebaseAuth.getInstance().getCurrentUser();
         String currentUserUid=current_user.getUid();
 
         ///getting the data from the database
@@ -107,7 +107,7 @@ public class settingsActivity extends AppCompatActivity {
                 userStatus.setText(status);
 
 
-              Picasso.with(settingsActivity.this).load(image).into(userImage);
+                Picasso.with(settingsActivity.this).load(image).into(userImage);
 
 
             }
@@ -142,7 +142,6 @@ public class settingsActivity extends AppCompatActivity {
                 /*
                 Intent galleryIntent =new Intent();    ///using gallery intent
                 galleryIntent.setType("images/*");
-
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(galleryIntent,"Select Image"),GALLERY_PICK);
                    */
