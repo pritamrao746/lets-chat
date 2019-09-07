@@ -8,18 +8,19 @@
 
     tools:context=".settingsActivity">
 
+
     <Button
         android:id="@+id/setting_change_image_button"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="40dp"
         android:background="@android:color/white"
         android:text="@string/change_image"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_status" />
 
@@ -33,41 +34,41 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_change_image_button" />
-
 
     <TextView
         android:id="@+id/setting_display_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:text="@string/display_name"
         android:textColor="@android:color/white"
 
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_display_image" />
 
     <TextView
         android:id="@+id/setting_status"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/default_status"
         android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/setting_change_image_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_display_name" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_display_image"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="354dp"
+        android:layout_height="286dp"
         android:layout_marginTop="100dp"
         android:src="@drawable/images"
         app:layout_constraintEnd_toEndOf="parent"
