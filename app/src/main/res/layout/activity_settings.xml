@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="#A4A2B9"
 
     tools:context=".settingsActivity">
 
     <Button
         android:id="@+id/setting_change_image_button"
-        android:layout_width="150dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="150dp"
         android:background="@android:color/white"
         android:text="@string/change_image"
         android:textAlignment="center"
@@ -23,10 +23,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_status" />
 
-
     <Button
         android:id="@+id/setting_change_status_button"
-        android:layout_width="150dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@color/colorAccent"
@@ -37,6 +36,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_change_image_button" />
+
 
     <TextView
         android:id="@+id/setting_display_name"
@@ -66,14 +66,20 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_display_image"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="170dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/images"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/settingAppBar" />
+
+    <include
+        android:id="@+id/settingAppBar"
+        layout="@layout/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
