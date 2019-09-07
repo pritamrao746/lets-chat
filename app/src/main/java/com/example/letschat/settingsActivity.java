@@ -69,6 +69,15 @@ public class settingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+
+
+
+        mToolBar = (Toolbar) findViewById(R.id.settingAppBar);
+        setSupportActionBar(mToolBar);
+        getSupportActionBar().setTitle("Settings");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         changeStatusButton=(Button)findViewById(R.id.setting_change_status_button);
         changeImageButton =(Button)findViewById(R.id.setting_change_image_button);
 
@@ -78,12 +87,6 @@ public class settingsActivity extends AppCompatActivity {
         userStatus= (TextView) findViewById(R.id.setting_status);
 
 
-
-
-        mToolBar = (Toolbar) findViewById(R.id.settingAppBar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setTitle("Settings");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
