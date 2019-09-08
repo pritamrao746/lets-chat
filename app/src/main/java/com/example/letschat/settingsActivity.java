@@ -114,7 +114,11 @@ public class settingsActivity extends AppCompatActivity {
                 userStatus.setText(status);
 
 
-                Picasso.with(settingsActivity.this).load(image).into(userImage);
+                if(!image.equals("default")){
+
+                    Picasso.with(settingsActivity.this).load(image).placeholder(R.drawable.images).into(userImage);
+                }
+
 
 
             }
@@ -211,7 +215,7 @@ public class settingsActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
                                                 mProgressDialog.dismiss();
-                                                Toast.makeText(settingsActivity.this,"image updated",Toast.LENGTH_LONG);
+                                                Toast.makeText(settingsActivity.this,"Image updloaded",Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
