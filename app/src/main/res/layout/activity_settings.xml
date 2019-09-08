@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A4A2B9"
+    android:background="@android:color/white"
 
     tools:context=".settingsActivity">
 
@@ -14,10 +14,10 @@
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="@android:color/white"
+        android:background="@color/colorAccent"
         android:text="@string/change_image"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -29,7 +29,7 @@
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/colorAccent"
+        android:background="@color/design_default_color_primary"
         android:text="@string/change_status"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/display_name"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorPrimaryDark"
 
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
         android:text="@string/default_status"
-        android:textColor="@android:color/white"
+        android:textColor="@color/design_default_color_primary_dark"
         app:layout_constraintBottom_toTopOf="@+id/setting_change_image_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
