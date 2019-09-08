@@ -40,27 +40,29 @@ public class settingsActivity extends AppCompatActivity {
 
 
 
-    ////data base referance
+    //data base reference
     private DatabaseReference mUserDatabase;
     private FirebaseUser current_user;
 
+    //firebase storage reference
     private StorageReference mStorageRef;
 
 
 
-    ///user information
+    //user information
     private CircleImageView userImage;
     private TextView userName;
     private TextView userStatus;
     private Toolbar mToolBar;
     private ProgressDialog mProgressDialog;
-    /////
+
+
     private Button changeStatusButton;
     private Button changeImageButton;
 
 
 
-    private static final int GALLERY_PICK=1;    ////to use gallery intent to pick the image
+   // private static final int GALLERY_PICK=1;    ////to use gallery intent to pick the image
 
 
 
@@ -91,16 +93,18 @@ public class settingsActivity extends AppCompatActivity {
 
 
 
-        ///uid of current user
+        //uid of current user
         current_user= FirebaseAuth.getInstance().getCurrentUser();
         String currentUserUid=current_user.getUid();
 
-        ///getting the data from the database
+        //getting the data from the database
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mUserDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(currentUserUid);
+
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 String name =dataSnapshot.child("user_name").getValue().toString();
                 String image=dataSnapshot.child("image").getValue().toString();
                 String status=dataSnapshot.child("status").getValue().toString();
@@ -116,7 +120,9 @@ public class settingsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { ///to handle error
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                //to handle error
 
 
             }
@@ -128,7 +134,11 @@ public class settingsActivity extends AppCompatActivity {
         changeStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String statusValue = userStatus.getText().toString();
+
                 Intent statusIntent =new Intent(settingsActivity.this,StatusActivity.class);
+                statusIntent.putExtra("status",statusValue);
                 startActivity(statusIntent);
 
 
@@ -143,11 +153,13 @@ public class settingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 /*
-                Intent galleryIntent =new Intent();    ///using gallery intent
-                galleryIntent.setType("images/*");
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(galleryIntent,"Select Image"),GALLERY_PICK);
-                   */
+
+                    Intent galleryIntent =new Intent();    ///using gallery intent
+                    galleryIntent.setType("images/*");
+                    galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(galleryIntent,"Select Image"),GALLERY_PICK);
+
+                 */
 
 
                 CropImage.activity()
@@ -164,12 +176,16 @@ public class settingsActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+            //Uploaded image's uri
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+
             if (resultCode == RESULT_OK) {
 
                 mProgressDialog =new ProgressDialog(settingsActivity.this);
                 mProgressDialog.setTitle("Uploading Image...");
-                mProgressDialog.setMessage("wait , while we uploade your image ");
+                mProgressDialog.setMessage("Wait , while we uploade your image ");
                 mProgressDialog.show();
 
 
@@ -177,6 +193,7 @@ public class settingsActivity extends AppCompatActivity {
                 final Uri imageUri = result.getUri();
 
                 final StorageReference filePath =mStorageRef.child("profile_image").child(current_user.getUid()+".jpeg");
+
                 filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -186,7 +203,9 @@ public class settingsActivity extends AppCompatActivity {
                             filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+
                                     String downloadUri=uri.toString();
+
                                     mUserDatabase.child("image").setValue(downloadUri).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
