@@ -54,7 +54,7 @@
     <TextView
         android:id="@+id/setting_status"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
         android:text="@string/default_status"
