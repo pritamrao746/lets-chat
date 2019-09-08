@@ -123,8 +123,10 @@ public class RegisterActivity extends AppCompatActivity {
             mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+
                     if(task.isSuccessful()){
                         mRegProgress.dismiss(); //switching progress bar off
+
                         Intent mainIntent = new Intent(RegisterActivity.this,MainActivity.class);
                         //This single line will prevent going back to start page from the main page
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -136,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     else{
                         mRegProgress.hide();
-                        Toast.makeText(RegisterActivity.this, "cannot store data on firebase", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "Problem in storing data, Please try again later ", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -158,3 +160,4 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 }
+
