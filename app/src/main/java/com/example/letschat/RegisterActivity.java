@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             HashMap<String ,String > userMap=new HashMap<>();
             userMap.put("user_name",name);
-            userMap.put("status","HIII,i am using chat app");
+            userMap.put("status","Hey there! I am using Let's Chat app");
             userMap.put("image","default");
             userMap.put("thumb_image","default");
             userMap.put("password",password);
