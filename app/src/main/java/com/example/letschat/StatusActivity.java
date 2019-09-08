@@ -43,6 +43,9 @@ public class StatusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_status);
 
 
+        //Previous status
+        final String statusValue = getIntent().getStringExtra("status");
+
         ///uid of current user
         current_user= FirebaseAuth.getInstance().getCurrentUser();
         String currentUserUid=current_user.getUid();
@@ -60,12 +63,17 @@ public class StatusActivity extends AppCompatActivity {
 
 
         mStatus=(TextView)findViewById(R.id.user_status);
+        mStatus.setText(statusValue);
+
         saveChangesButton=(Button)findViewById(R.id.status_save_button);
 
 
         saveChangesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 mProgressDialog=new ProgressDialog(StatusActivity.this);
                 //Progress Bar
                 mProgressDialog.setTitle("Saving Changes");
