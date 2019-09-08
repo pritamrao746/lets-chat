@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -58,7 +59,7 @@ public class StatusActivity extends AppCompatActivity {
 
 
 
-        mStatus=(TextView)findViewById(R.id.user_status);                    /////
+        mStatus=(TextView)findViewById(R.id.user_status);
         saveChangesButton=(Button)findViewById(R.id.status_save_button);
 
 
@@ -78,6 +79,9 @@ public class StatusActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             mProgressDialog.dismiss();
+
+                            Intent settingsIntent = new Intent(StatusActivity.this,settingsActivity.class);
+                            startActivity(settingsIntent);
 
                         }
                         else{
