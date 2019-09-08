@@ -39,7 +39,7 @@
         android:layout_marginBottom="40dp"
         android:backgroundTint="#68b0a2"
         android:onClick="loginPage"
-        android:text="@string/alreday_have_an_account"
+        android:text="@string/already_have_an_account"
         android:textColor="@android:color/white"
         android:textSize="12sp" />
 </RelativeLayout>
