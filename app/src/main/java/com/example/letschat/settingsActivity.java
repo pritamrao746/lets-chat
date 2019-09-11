@@ -128,6 +128,7 @@ public class settingsActivity extends AppCompatActivity {
 
                 //to handle error
 
+                Toast.makeText(settingsActivity.this,"Something went wrong, please try again!",Toast.LENGTH_LONG).show();
 
             }
 

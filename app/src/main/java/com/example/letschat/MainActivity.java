@@ -96,6 +96,14 @@ public class MainActivity extends AppCompatActivity {
              //finish();   this was not letting you go back to main activity
          }
 
+        if(item.getItemId()==R.id.main_all_btn){
+            Intent AllUserActivity = new Intent(MainActivity.this,AllUserActivity.class);
+            startActivity(AllUserActivity);
+
+
+
+        }
+
 
 
         return true;

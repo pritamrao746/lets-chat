@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
             userMap.put("status","Hey there! I am using Let's Chat app");
             userMap.put("image","default");
             userMap.put("thumb_image","default");
-            userMap.put("password",password);
+           // userMap.put("password",password);
 
             mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
