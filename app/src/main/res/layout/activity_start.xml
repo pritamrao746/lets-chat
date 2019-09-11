@@ -31,13 +31,13 @@
 
     <Button
         android:id="@+id/start_login_btn"
-        android:layout_width="290dp"
-        android:layout_height="58dp"
+        android:layout_width="291dp"
+        android:layout_height="59dp"
         android:layout_below="@id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#68b0a2"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:onClick="loginPage"
         android:text="@string/alreday_have_an_account"
         android:textColor="@android:color/white"
