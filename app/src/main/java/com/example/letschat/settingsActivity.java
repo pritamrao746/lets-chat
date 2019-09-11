@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
@@ -33,7 +34,13 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 
 public class settingsActivity extends AppCompatActivity {
@@ -195,40 +202,116 @@ public class settingsActivity extends AppCompatActivity {
 
 
 
-                final Uri imageUri = result.getUri();
 
-                final StorageReference filePath =mStorageRef.child("profile_image").child(current_user.getUid()+".jpeg");
 
-                filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                final Uri imageUri = result.getUri();  // Url of the uploaded image
 
-                        if(task.isSuccessful()){
+                String currentUserId = current_user.getUid();
 
-                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
+                //File of the thumbImage which is needed to pass onto Bitmap
+                  final File thumbFilePath = new File(imageUri.getPath());
 
-                                    String downloadUri=uri.toString();
 
-                                    mUserDatabase.child("image").setValue(downloadUri).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
-                                                mProgressDialog.dismiss();
-                                                Toast.makeText(settingsActivity.this,"Image updloaded",Toast.LENGTH_LONG).show();
+                try {
+
+                    Bitmap thumbBitmap = new Compressor(this)
+                            .setMaxWidth(200)
+                            .setMaxHeight(200)
+                            .setQuality(75)
+                            .compressToBitmap(thumbFilePath);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    final byte[] thumbByte = baos.toByteArray();   //Bitmap data converted to byte form
+
+
+                    final  StorageReference filePath =mStorageRef.child("profile_image").child(currentUserId+".jpg");
+                    final  StorageReference thumb_FilePath = mStorageRef.child("profile_image").child("thumbs").child(currentUserId+".jpg");
+
+
+
+                    filePath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+                            if(task.isSuccessful()){
+
+                                filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                        final  String downloadUri = uri.toString();
+
+                                        UploadTask uploadTask = thumb_FilePath.putBytes(thumbByte);
+
+
+
+
+                                        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumbTask) {
+
+
+
+                                                if(thumbTask.isSuccessful()){
+
+                                                    thumb_FilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                        @Override
+                                                        public void onSuccess(Uri uri) {
+
+                                                            final String thumb_downloadUrl = uri.toString();
+
+                                                            Map  updateHashMap = new HashMap<>();
+                                                            updateHashMap.put("image",downloadUri);
+                                                            updateHashMap.put("thumb_image",thumb_downloadUrl);
+
+
+
+                                                            mUserDatabase.updateChildren(updateHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if(task.isSuccessful()){
+                                                                        mProgressDialog.dismiss();
+                                                                        Toast.makeText(settingsActivity.this,"Image uploaded",Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+                                                            });
+
+                                                        }
+                                                    });
+
+                                                }
+
+                                                else{
+
+                                                    Toast.makeText(settingsActivity.this,"can't store the thumb image",Toast.LENGTH_LONG).show();
+                                                    mProgressDialog.dismiss();
+                                                }
+
+
                                             }
-                                        }
-                                    });
+                                        });     //end of complete listener of of upload task
 
-                                }
-                            });
-                        }else{
-                            Toast.makeText(settingsActivity.this,"can't store the image",Toast.LENGTH_LONG);
-                            mProgressDialog.dismiss();
+
+
+
+
+
+                                    }
+                                });
+                            }else{
+                                Toast.makeText(settingsActivity.this,"can't store the image",Toast.LENGTH_LONG).show();
+                                mProgressDialog.dismiss();
+                            }
                         }
-                    }
-                });
+                    }); //end of complete listener of file path
+
+                } catch (Exception e) {
+
+                    Toast.makeText(settingsActivity.this,"Null exception in bitmap",Toast.LENGTH_LONG).show();
+                }
+
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }

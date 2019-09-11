@@ -37,7 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.name.setText(userList.get(position).getUser_name());
         holder.status.setText(userList.get(position).getStatus());
-        Picasso.with(context).load(userList.get(position).getImage()).placeholder(R.drawable.images).into(holder.profileImage);
+        Picasso.with(context).load(userList.get(position).getThumb_image()).placeholder(R.drawable.images).into(holder.profileImage);
 
     }
 
