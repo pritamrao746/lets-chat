@@ -37,7 +37,7 @@ public class UserProfilePage extends AppCompatActivity {
 
     //private ProgressDialog mProgressDialog;
 
-    private String mCurrentFrienshipState;
+    private String mCurrentFriendshipState;
 
 
 
@@ -80,11 +80,11 @@ public class UserProfilePage extends AppCompatActivity {
         mProfileSendRequestBtn =(Button)findViewById(R.id.profile_send_req_btn);
 
 
-        mCurrentFrienshipState= "Not Friends";
+        mCurrentFriendshipState= "Not Friends";
 
 
 
-        loadUserData();
+        loadUserData(uidOfClickedPerson);
         sendFriendRequest(uidOfClickedPerson);
 
 
@@ -99,7 +99,14 @@ public class UserProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                if(mCurrentFrienshipState.equals("Not Friends"))
+
+                mProfileSendRequestBtn.setEnabled(false);   //once button is tapped user should not agin press the btn
+
+
+
+
+                // ---------    NOT FRIENDS STATE    ----------  //
+                if(mCurrentFriendshipState.equals("Not Friends"))
                 {
 
                     mFriendReqDataBase.child(mCurrentUser.getUid()).child(uidOfClickedPerson).child("request_type")
@@ -115,7 +122,13 @@ public class UserProfilePage extends AppCompatActivity {
                                     public void onSuccess(Void aVoid)
                                     {
 
-                                        Toast.makeText(UserProfilePage.this,"Request Sent!",Toast.LENGTH_SHORT).show();
+
+                                        mProfileSendRequestBtn.setEnabled(true);
+                                        mCurrentFriendshipState = "req_sent";
+                                        mProfileSendRequestBtn.setText("Cancel Friend Request");
+
+
+                                        //Toast.makeText(UserProfilePage.this,"Request Sent!",Toast.LENGTH_SHORT).show();
 
                                     }
                                 });
@@ -133,6 +146,47 @@ public class UserProfilePage extends AppCompatActivity {
 
                 }//End of if
 
+
+
+
+                // ---------    CANCEL REQUEST STATE   ----------  //
+                if(mCurrentFriendshipState.equals("req_sent"))
+                {
+                    mFriendReqDataBase.child(mCurrentUser.getUid()).child(uidOfClickedPerson)
+                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if(task.isSuccessful())
+                            {
+
+                                mFriendReqDataBase.child(uidOfClickedPerson).child(mCurrentUser.getUid())
+                                        .removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
+                                {
+
+                                    @Override
+                                    public void onSuccess(Void aVoid)
+                                    {
+
+                                        mProfileSendRequestBtn.setEnabled(true);
+                                        mCurrentFriendshipState = "Not Friends";
+                                        mProfileSendRequestBtn.setText("Send Friend Request");
+                                    }
+                                });
+
+                            }else{
+
+                                Toast.makeText(UserProfilePage.this,"Failed Cancelling Request, "
+                                        +"Please try again later !",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+
+                }
+
+
+
             }
         });
 
@@ -140,7 +194,7 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
 
-    private void loadUserData(){
+    private void loadUserData(final String uidOfClickedPerson){
 
         mUserDataBase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -156,6 +210,58 @@ public class UserProfilePage extends AppCompatActivity {
 
                 Picasso.with(UserProfilePage.this).load(image).placeholder(R.drawable.images).into(mProfileImage);
 
+
+
+
+                //-----------------  FRIEND LIST / REQUEST FEATURE   ---------------- //
+
+
+                //addListenerForSingleValueEvent works only for one time and for
+                //one Single Object
+                mFriendReqDataBase.child(mCurrentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    //datasnapshot works until current userid
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                    {
+                        if(dataSnapshot.hasChild(uidOfClickedPerson))
+                        {
+                            String reqType = dataSnapshot.child(uidOfClickedPerson).child("request_type").getValue().toString();
+
+                            if(reqType.equals("received")) //i.e the clickedPerson has sent us (current User) request
+                            {
+
+
+                                mCurrentFriendshipState = "req_received";
+                                mProfileSendRequestBtn.setText("Accept Friend Request");
+
+                            }
+                            else if(reqType.equals("sent"))
+                            {
+                                mCurrentFriendshipState ="req_sent";
+                                mProfileSendRequestBtn.setText("Cancel Friend Request");
+
+                            }
+
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+
+
                // mProgressDialog.dismiss();
 
             }
@@ -165,8 +271,12 @@ public class UserProfilePage extends AppCompatActivity {
 
                 Toast.makeText(UserProfilePage.this,"There is some problem with server"
                         + ", Please try again !",Toast.LENGTH_SHORT).show();
+
+
             }
         });
+
+
 
     }
 
