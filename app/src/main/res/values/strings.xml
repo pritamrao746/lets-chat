@@ -26,5 +26,9 @@
     <string name="default_status">Hii,i am using chat app</string>
     <string name="save_change">Save Changes</string>
     <string name="your_status">your status</string>
+    <string name="send_friend_request">send friend request</string>
+    <string name="todo">TODO</string>
+    <string name="current_user_status">Current User Status</string>
+    <string name="total_friends">Total Friends</string>
 
 </resources>

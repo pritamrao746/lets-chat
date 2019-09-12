@@ -48,9 +48,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("i should ","not be here");
+               // Log.e("i should ","not be here");
 
-                String id =userList.get(position).toString();
+                String id =userList.get(position).getUid();
 
                 Intent profileIntent = new Intent(context,UserProfilePage.class);
                 profileIntent.putExtra("userId",id);

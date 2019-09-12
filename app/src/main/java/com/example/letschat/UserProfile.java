@@ -1,10 +1,13 @@
 package com.example.letschat;
 
 public class UserProfile {
-    private String User_name;
+    private String user_name;
     private String status;
     private String image;
-    private String thumb_image ;
+    private String thumb_image;
+    private String uid;
+
+
 
     public UserProfile() {
 
@@ -12,10 +15,11 @@ public class UserProfile {
     }
 
     public UserProfile(String user_name, String status, String profile_image, String thumb_image) {
-        this.User_name = user_name;
+        this.user_name = user_name;
         this.status = status;
         this.image = profile_image;
         this.thumb_image = thumb_image;
+        this.uid = uid;
     }
 
 
@@ -27,11 +31,11 @@ public class UserProfile {
 
 
     public String getUser_name() {
-        return User_name;
+        return user_name;
     }
 
     public void setUser_name(String user_name) {
-        User_name = user_name;
+        this.user_name = user_name;
     }
 
     public String getStatus() {
@@ -57,4 +61,13 @@ public class UserProfile {
     public void setThumb_image(String thumb_image) {
         this.thumb_image = thumb_image;
     }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 }
+

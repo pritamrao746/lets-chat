@@ -4,19 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".UserProfilePage">
 
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="match_parent"
+        android:layout_height="344dp"
+        android:contentDescription="@string/todo"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/images" />
+
     <TextView
-        android:id="@+id/testText"
+        android:id="@+id/profile_displayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="279dp"
-        android:layout_marginEnd="101dp"
-        android:layout_marginBottom="397dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="182dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/display_name"
+        android:textColor="@color/Background"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/profile_status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+    <TextView
+        android:id="@+id/profile_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="171dp"
+        android:layout_marginEnd="182dp"
+        android:layout_marginBottom="138dp"
+        android:text="@string/current_user_status"
+        android:textColor="@color/Background"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_totalFriends"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_displayName" />
+
+
+    <Button
+        android:id="@+id/profile_send_req_btn"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="72dp"
+        android:background="@color/Background"
+        android:text="@string/send_friend_request"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_primary_dark"
+        android:textSize="14sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_totalFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/total_friends"
+        android:textColor="@color/Background"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_send_req_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
