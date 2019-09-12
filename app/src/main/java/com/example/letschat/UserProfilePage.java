@@ -24,6 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class UserProfilePage extends AppCompatActivity {
 
     private TextView mProfileName,mProfileStatus,mProfileFriendsCount;
@@ -31,7 +34,8 @@ public class UserProfilePage extends AppCompatActivity {
     private Button mProfileSendRequestBtn;
 
     private DatabaseReference mUserDataBase;
-    private DatabaseReference mFriendReqDataBase;
+    private DatabaseReference mFriendReqDataBase;   //for friend_requests directory
+    private DatabaseReference mFriendDatabase;      //for friendData directory
 
     private FirebaseUser mCurrentUser;
 
@@ -64,12 +68,17 @@ public class UserProfilePage extends AppCompatActivity {
 
 
 
+
+
         mUserDataBase = FirebaseDatabase.getInstance().getReference().child("users").child(uidOfClickedPerson);
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        //New Directory at the same level as user's directory
+        //New temporary FriendRequest Directory at the same level as user's directory
         mFriendReqDataBase = FirebaseDatabase.getInstance().getReference().child("friend_requests");
+
+        //New permanent FriendData Directory at the same level as user's directory
+        mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("friends");
 
 
 
@@ -90,7 +99,15 @@ public class UserProfilePage extends AppCompatActivity {
 
 
 
+
+
     }
+
+
+
+
+
+
 
     private void sendFriendRequest(final String uidOfClickedPerson) {
 
@@ -100,12 +117,13 @@ public class UserProfilePage extends AppCompatActivity {
             public void onClick(View view)
             {
 
-                mProfileSendRequestBtn.setEnabled(false);   //once button is tapped user should not agin press the btn
+                mProfileSendRequestBtn.setEnabled(false);   //once button is tapped user should not be able to again press the btn
 
 
 
 
-                // ---------    NOT FRIENDS STATE    ----------  //
+
+                // ---------------------------    NOT FRIENDS STATE / SEND FRIEND REQUEST    ---------------------------//
                 if(mCurrentFriendshipState.equals("Not Friends"))
                 {
 
@@ -123,7 +141,7 @@ public class UserProfilePage extends AppCompatActivity {
                                     {
 
 
-                                        mProfileSendRequestBtn.setEnabled(true);
+
                                         mCurrentFriendshipState = "req_sent";
                                         mProfileSendRequestBtn.setText("Cancel Friend Request");
 
@@ -141,6 +159,9 @@ public class UserProfilePage extends AppCompatActivity {
                                 Toast.makeText(UserProfilePage.this,"Failed Sending Request, "
                                         +"Please try again later !",Toast.LENGTH_SHORT).show();
                             }
+
+                            mProfileSendRequestBtn.setEnabled(true);
+
                         }
                     });
 
@@ -149,7 +170,7 @@ public class UserProfilePage extends AppCompatActivity {
 
 
 
-                // ---------    CANCEL REQUEST STATE   ----------  //
+             //   ---------------------------    CANCEL FRIEND REQUEST STATE  ----------------------------//
                 if(mCurrentFriendshipState.equals("req_sent"))
                 {
                     mFriendReqDataBase.child(mCurrentUser.getUid()).child(uidOfClickedPerson)
@@ -183,7 +204,138 @@ public class UserProfilePage extends AppCompatActivity {
                         }
                     });
 
-                }
+                } //if end
+
+
+
+
+
+
+
+
+
+                // ----------------------- ACCEPT FRIEND REQUEST STATE  ---------------------------//
+
+                // -----------------------  START OF FRIENDS DATA STRUCTURE ----------------------- //
+
+                if(mCurrentFriendshipState.equals("req_received"))
+                {
+
+                    final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+
+                    mFriendDatabase.child(mCurrentUser.getUid()).child(uidOfClickedPerson)
+                            .setValue(currentDate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+
+                            //i.e friend directory is created successfully then ..
+                            if(task.isSuccessful())
+                            {
+
+                                mFriendDatabase.child(uidOfClickedPerson).child(mCurrentUser.getUid())
+                                        .setValue(currentDate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task)
+                                    {
+                                        if(task.isSuccessful())
+                                        {
+
+
+                                            //.. then remove friendRequest directory
+
+
+                                            // ----------------- SAME FUNCTION AS ABOVE CANCEL FRIEND REQUEST --------- //
+                                            mFriendReqDataBase.child(mCurrentUser.getUid()).child(uidOfClickedPerson)
+                                                    .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task)
+                                                {
+                                                    if(task.isSuccessful())
+                                                    {
+
+                                                        mFriendReqDataBase.child(uidOfClickedPerson).child(mCurrentUser.getUid())
+                                                                .removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
+                                                        {
+
+                                                            @Override
+                                                            public void onSuccess(Void aVoid)
+                                                            {
+
+                                                                mProfileSendRequestBtn.setEnabled(true);
+                                                                mCurrentFriendshipState = "friends";
+                                                                mProfileSendRequestBtn.setText("UNFRIEND");
+                                                            }
+                                                        });
+
+                                                    }else{
+
+                                                        Toast.makeText(UserProfilePage.this,"Failed Deleting Request "
+                                                                +" !",Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                }
+                                            });
+
+                                            // ----------------- SAME FUNCTION AS ABOVE CANCEL FRIEND REQUEST --------- //
+                                        }
+
+                                    }
+                                });
+
+
+                            }else{
+                                //ERROR HANDLING IF REQUEST NOT ACCEPTED OR FRIEND DIRECTORY NOT CREATED
+                            }
+
+                        }
+                    });
+                }   //End of accept friend request
+
+
+
+
+
+
+                // -------------------  UNFRIEND IF FRIEND ----------------------- //
+                if(mCurrentFriendshipState.equals("friends"))
+                {
+
+                    mFriendDatabase.child(mCurrentUser.getUid()).child(uidOfClickedPerson)
+                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+
+                            if(task.isSuccessful())
+                            {
+
+                                mFriendDatabase.child(uidOfClickedPerson).child(mCurrentUser.getUid())
+                                        .removeValue().addOnSuccessListener(new OnSuccessListener<Void>()
+                                {
+
+                                    @Override
+                                    public void onSuccess(Void aVoid)
+                                    {
+
+                                        mProfileSendRequestBtn.setEnabled(true);
+                                        mCurrentFriendshipState = "Not Friends";
+                                        mProfileSendRequestBtn.setText("Send Friend Request");
+                                    }
+                                });
+
+                            }else{
+
+                                Toast.makeText(UserProfilePage.this,"Unfriend Operation Failed "
+                                        +" !",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+
+                }//End of Unfriend
+
+
 
 
 
@@ -213,11 +365,12 @@ public class UserProfilePage extends AppCompatActivity {
 
 
 
-                //-----------------  FRIEND LIST / REQUEST FEATURE   ---------------- //
+                //-----------------  FRIEND LIST / REQUEST FEATURE /UPDATING REQUEST BUTTON VALUE  ---------------- //
 
 
-                //addListenerForSingleValueEvent works only for one time and for
-                //one Single Object
+                /*addListenerForSingleValueEvent works only for one time and for
+                one Single Object
+                 */
                 mFriendReqDataBase.child(mCurrentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
 
                     //datasnapshot works until current userid
@@ -243,9 +396,30 @@ public class UserProfilePage extends AppCompatActivity {
                                 mProfileSendRequestBtn.setText("Cancel Friend Request");
 
                             }
+                        }   //Check in friends directory if current user and tapped person are friend or not
+                            //If friend then button should show unfriend
+                        else{
 
+                            mFriendDatabase.child(mCurrentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                {
+                                    if(dataSnapshot.hasChild(uidOfClickedPerson))
+                                    {
+                                        mCurrentFriendshipState ="friends";
+                                        mProfileSendRequestBtn.setText("Unfriend");
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Error handling for updating value of button (only for unfriend after accepting request)
+                                }
+                            });
 
                         }
+
 
 
                     }
@@ -253,23 +427,17 @@ public class UserProfilePage extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                        // Error handling for updating value of button (i.e ACCEPT , UNFRIEND and all)
                     }
                 });
-
-
-
-
-
-
-
-               // mProgressDialog.dismiss();
-
             }
 
+
+                                 //Error Handling
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                Toast.makeText(UserProfilePage.this,"There is some problem with server"
+                Toast.makeText(UserProfilePage.this,"There is some problem with server error loading data"
                         + ", Please try again !",Toast.LENGTH_SHORT).show();
 
 
@@ -278,8 +446,6 @@ public class UserProfilePage extends AppCompatActivity {
 
 
 
-    }
-
-
+    }       //End od Load User Data Function
 
 }
