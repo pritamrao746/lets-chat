@@ -64,6 +64,7 @@ public class AllUserActivity extends AppCompatActivity {
 
 
         mDatabaseReferance = FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabaseReferance.keepSynced(true);        //For offline data syncing
 
         mDatabaseReferance.addValueEventListener(new ValueEventListener() {
 

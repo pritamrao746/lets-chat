@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,11 +40,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.name.setText(userList.get(position).getUser_name());
         holder.status.setText(userList.get(position).getStatus());
-        Picasso.with(context).load(userList.get(position).getThumb_image()).placeholder(R.drawable.images).into(holder.profileImage);
 
+
+
+        Picasso.with(context).load(userList.get(position).getThumb_image()).networkPolicy(NetworkPolicy.OFFLINE)
+                .placeholder(R.drawable.images).into(holder.profileImage, new Callback() {
+            @Override
+            public void onSuccess() {
+
+                //if data retrieved via offline don't do anything
+
+            }
+
+            @Override
+            public void onError() {
+
+                Picasso.with(context).load(userList.get(position).getThumb_image())
+                        .placeholder(R.drawable.images).into(holder.profileImage);
+
+
+            }
+        });
 
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {

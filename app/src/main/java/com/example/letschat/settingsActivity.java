@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -106,14 +108,17 @@ public class settingsActivity extends AppCompatActivity {
 
         //getting the data from the database
         mStorageRef = FirebaseStorage.getInstance().getReference();
+
         mUserDatabase= FirebaseDatabase.getInstance().getReference().child("users").child(currentUserUid);
+        mUserDatabase.keepSynced(true);
+
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 String name =dataSnapshot.child("user_name").getValue().toString();
-                String image=dataSnapshot.child("image").getValue().toString();
+               final String image=dataSnapshot.child("image").getValue().toString();
                 String status=dataSnapshot.child("status").getValue().toString();
                 String thumbnail =dataSnapshot.child("thumb_image").getValue().toString();
 
@@ -123,7 +128,23 @@ public class settingsActivity extends AppCompatActivity {
 
                 if(!image.equals("default")){
 
-                    Picasso.with(settingsActivity.this).load(image).placeholder(R.drawable.images).into(userImage);
+
+                    /* OFFLINE CAPABILITY OF PICASSO */
+                    Picasso.with(settingsActivity.this).load(image).networkPolicy(NetworkPolicy.OFFLINE)
+                            .placeholder(R.drawable.images).into(userImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                                        //if data retrieved via offline don't do anything
+                        }
+
+                        @Override
+                        public void onError() //If error in retrieving image offline then download else do nothing
+                        {
+
+                            Picasso.with(settingsActivity.this).load(image).placeholder(R.drawable.images).into(userImage);
+                        }
+                    });
+
                 }
 
 

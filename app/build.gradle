@@ -38,7 +38,10 @@ dependencies {
 
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
+
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+
 
     implementation 'id.zelory:compressor:2.1.0'
 

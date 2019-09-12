@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -34,6 +37,10 @@ public class UserProfilePage extends AppCompatActivity {
     private Button mProfileSendRequestBtn;
 
     private DatabaseReference mUserDataBase;
+
+
+
+
     private DatabaseReference mFriendReqDataBase;   //for friend_requests directory
     private DatabaseReference mFriendDatabase;      //for friendData directory
 
@@ -71,6 +78,8 @@ public class UserProfilePage extends AppCompatActivity {
 
 
         mUserDataBase = FirebaseDatabase.getInstance().getReference().child("users").child(uidOfClickedPerson);
+        mUserDataBase.keepSynced(true);
+
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -355,12 +364,28 @@ public class UserProfilePage extends AppCompatActivity {
 
                 String displayName = dataSnapshot.child("user_name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
-                String image = dataSnapshot.child("image").getValue().toString();
+                final String image = dataSnapshot.child("image").getValue().toString();
 
                 mProfileName.setText(displayName);
                 mProfileStatus.setText(status);
 
-                Picasso.with(UserProfilePage.this).load(image).placeholder(R.drawable.images).into(mProfileImage);
+
+                Picasso.with(UserProfilePage.this).load(image).networkPolicy(NetworkPolicy.OFFLINE)
+                        .placeholder(R.drawable.images).into(mProfileImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        //Do Nothing
+                    }
+
+                    @Override
+                    public void onError() {
+
+                        Picasso.with(UserProfilePage.this).load(image).placeholder(R.drawable.images).into(mProfileImage);
+
+                    }
+                });
+
+
 
 
 
