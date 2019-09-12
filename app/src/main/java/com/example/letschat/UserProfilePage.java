@@ -69,7 +69,7 @@ public class UserProfilePage extends AppCompatActivity {
 
 
          */
-        Toast.makeText(UserProfilePage.this,"Please wait while we load the data !",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(UserProfilePage.this,"Please wait while we load the data !",Toast.LENGTH_SHORT).show();
 
         String uidOfClickedPerson = getIntent().getStringExtra("userId");
 
@@ -155,7 +155,7 @@ public class UserProfilePage extends AppCompatActivity {
                                         mProfileSendRequestBtn.setText("Cancel Friend Request");
 
 
-                                        //Toast.makeText(UserProfilePage.this,"Request Sent!",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UserProfilePage.this,"Request Sent!",Toast.LENGTH_SHORT).show();
 
                                     }
                                 });
