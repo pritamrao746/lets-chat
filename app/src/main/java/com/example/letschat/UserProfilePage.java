@@ -67,6 +67,7 @@ public class UserProfilePage extends AppCompatActivity {
         mUserDataBase = FirebaseDatabase.getInstance().getReference().child("users").child(uidOfClickedPerson);
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+
         //New Directory at the same level as user's directory
         mFriendReqDataBase = FirebaseDatabase.getInstance().getReference().child("friend_requests");
 
