@@ -27,6 +27,9 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth; //For Authentication Purpose
 
 
+
+
+
     private Toolbar mToolbar;  //for top toolbar
 
     @Override
