@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
     private Toolbar mToolbar;  //for top toolbar
 
     @Override
