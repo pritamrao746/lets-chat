@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class UserProfilePage extends AppCompatActivity {
     private TextView mProfileName,mProfileStatus,mProfileFriendsCount;
     private ImageView mProfileImage;
     private Button mProfileSendRequestBtn;
+    private Button mProfileChatBtn;
 
     private DatabaseReference mUserDataBase;
 
@@ -96,6 +98,7 @@ public class UserProfilePage extends AppCompatActivity {
         mProfileStatus=(TextView)findViewById(R.id.profile_status);
         mProfileFriendsCount=(TextView)findViewById(R.id.profile_totalFriends);
         mProfileSendRequestBtn =(Button)findViewById(R.id.profile_send_req_btn);
+        mProfileChatBtn = (Button)findViewById(R.id.profile_chat_btn);
 
 
         mCurrentFriendshipState= "Not Friends";
@@ -105,6 +108,17 @@ public class UserProfilePage extends AppCompatActivity {
         loadUserData(uidOfClickedPerson);
         sendFriendRequest(uidOfClickedPerson);
 
+
+
+        mProfileChatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent chatPage = new Intent(UserProfilePage.this,FileSharingChatTest.class);
+                startActivity(chatPage);
+
+            }
+        });
 
 
 

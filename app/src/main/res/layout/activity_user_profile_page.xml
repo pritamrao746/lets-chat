@@ -82,4 +82,19 @@
         app:layout_constraintBottom_toTopOf="@+id/profile_send_req_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/profile_chat_btn"
+        android:layout_width="115dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="44dp"
+        android:backgroundTint="@color/Background"
+        android:text="@string/chat"
+        app:layout_constraintBottom_toTopOf="@+id/profile_totalFriends"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_status" />
 </androidx.constraintlayout.widget.ConstraintLayout>
