@@ -31,5 +31,6 @@
     <string name="current_user_status">Current User Status</string>
     <string name="total_friends">Total Friends</string>
     <string name="chat">chat</string>
+    <string name="title_activity_share_location">Map</string>
 
 </resources>

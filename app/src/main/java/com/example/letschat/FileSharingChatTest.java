@@ -93,7 +93,8 @@ public class FileSharingChatTest extends AppCompatActivity {
                         {
                                 "Images",
                                 "PDF Files",
-                                "MS Word Files"
+                                "MS Word Files",
+                                "Share Location"
 
                         };
 
@@ -132,6 +133,16 @@ public class FileSharingChatTest extends AppCompatActivity {
                             intent.setAction(Intent.ACTION_GET_CONTENT);
                             intent.setType("application/msword");
                             startActivityForResult(intent.createChooser(intent,"Select Word File"),438);
+
+                        }
+
+                        if(position==3)
+                        {
+
+
+                            Intent mapIntent = new Intent(FileSharingChatTest.this,MapsActivity.class);
+                            startActivity(mapIntent);
+
 
                         }
                     }
@@ -192,8 +203,8 @@ public class FileSharingChatTest extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
-                                            Toast.makeText(FileSharingChatTest.this, "send " +
-                                                    "image", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(FileSharingChatTest.this, "image " +
+                                                    "sent", Toast.LENGTH_SHORT).show();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
