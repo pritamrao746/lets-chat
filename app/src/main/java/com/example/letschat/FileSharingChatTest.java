@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +29,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FileSharingChatTest extends AppCompatActivity {
 
     private Toolbar mToolbar;
@@ -36,6 +40,9 @@ public class FileSharingChatTest extends AppCompatActivity {
     private Button mShareFilesBtn;
     private String mFileType="",myUrl="";
     private StorageTask uploadTask;
+
+    private String uniqueKey;
+
 
 
     //data base reference
@@ -63,7 +70,7 @@ public class FileSharingChatTest extends AppCompatActivity {
 
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        mCurrentUserChat = FirebaseDatabase.getInstance().getReference().child("chats");    //chat directory at same level as user
+        mCurrentUserChat = FirebaseDatabase.getInstance().getReference().child("chats_image").child(mCurrentUser.getUid());    //chat directory at same level as user
         mStorageReference=FirebaseStorage.getInstance().getReference();        //root directory of storage
 
 
@@ -146,7 +153,7 @@ public class FileSharingChatTest extends AppCompatActivity {
         if(requestCode==438 && resultCode==RESULT_OK && data!=null && data.getData()!=null)
         {
             mFileUri = data.getData();  //url of selected image
-            final String currentUserId = mCurrentUser.getUid();
+
 
             if(!mFileType.equals("image"))
             {
@@ -156,34 +163,58 @@ public class FileSharingChatTest extends AppCompatActivity {
             {
 
 
-                        //path of file where image will be stored hence reference
-                final  StorageReference filePath = mStorageReference.child("chats_image").child(mFileUri+".jpg");
+                //path of file where image will be stored hence reference
 
-                    filePath.putFile(mFileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                uniqueKey=null;
+                uniqueKey=mCurrentUserChat.push().toString();
+
+                final  StorageReference filePath = mStorageReference.child("chats_image").child(uniqueKey+".jpg");
+
+
+
+                filePath.putFile(mFileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                    {
+                        if(task.isSuccessful())
                         {
-                            if(task.isSuccessful())
-                            {
-                                filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri)
-                                    {
-                                         String downloadUrl = uri.toString();
+                            filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri)
+                                {
+                                    String downloadUrl = uri.toString();
 
-                                        mCurrentUserChat.child(mCurrentUser.getUid()).child(downloadUrl).child("msg_type").setValue("image");
+                                    Map  msgHashMap = new HashMap<>();
+                                    msgHashMap.put("url_img",downloadUrl);
+                                    msgHashMap.put("msg_type","image");
+
+                                    mCurrentUserChat.push().setValue(msgHashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            Toast.makeText(FileSharingChatTest.this, "send " +
+                                                    "image", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                            Toast.makeText(FileSharingChatTest.this,"There is an error "+e.toString()+
+                                                    " ",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
 
 
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                Toast.makeText(FileSharingChatTest.this, "Error sending " +
-                                        "image", Toast.LENGTH_SHORT).show();
-                            }
+                                }
+                            });
                         }
-                    });
+                        else
+                        {
+                            Toast.makeText(FileSharingChatTest.this, "Error sending " +
+                                    "image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
 
             }
