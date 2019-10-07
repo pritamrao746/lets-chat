@@ -1,18 +1,21 @@
 package com.example.letschat;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,10 +27,22 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
 
+
+
+    private DatabaseReference dataref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        dataref= FirebaseDatabase.getInstance().getReference().child("users").
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -45,21 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser == null) {
-
-            sendToStart();
-        }
-
-
     }
 
     private void sendToStart() {
@@ -91,9 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
          }
          if(item.getItemId()==R.id.main_settings_btn){
-             Intent settingIntent = new Intent(MainActivity.this,settingsActivity.class);
-             startActivity(settingIntent);
+           // Intent settingIntent = new Intent(MainActivity.this,settingsActivity.class);
+             //startActivity(settingIntent);
              //finish();   this was not letting you go back to main activity
+             Intent chatIntent =new Intent(MainActivity.this,ChatActivity.class);
+             chatIntent.putExtra("userId","lcfQa52aBtWZGUv2A546PV1EQju2");
+             startActivity(chatIntent);
+
+
+
+
+
          }
 
         if(item.getItemId()==R.id.main_all_btn){
@@ -108,4 +116,37 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser == null) {
+
+            sendToStart();
+        }
+
+        dataref.child("online").setValue(0);
+
+
+
+
+
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataref.child("online").setValue(ServerValue.TIMESTAMP);
+
+
+    }
 }
+

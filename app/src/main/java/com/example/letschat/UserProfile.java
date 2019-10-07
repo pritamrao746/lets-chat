@@ -6,21 +6,24 @@ public class UserProfile {
     private String image;
     private String thumb_image;
     private String uid;
+    private long online ;
 
+    public long getOnline() {
+        return online;
+    }
 
+    public void setOnline(long online) {
+        this.online = online;
+    }
 
     public UserProfile() {
 
         //for firebase
     }
 
-    public UserProfile(String user_name, String status, String profile_image, String thumb_image) {
-        this.user_name = user_name;
-        this.status = status;
-        this.image = profile_image;
-        this.thumb_image = thumb_image;
-        this.uid = uid;
-    }
+
+
+
 
 
    /*  public UserProfile(String name,String status){
@@ -69,5 +72,6 @@ public class UserProfile {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
 }
 
