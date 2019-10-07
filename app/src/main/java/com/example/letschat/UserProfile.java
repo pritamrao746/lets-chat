@@ -8,6 +8,15 @@ public class UserProfile {
     private String uid;
     private long online ;
 
+    public UserProfile(String user_name, String status, String image, String thumb_image, String uid, long online) {
+        this.user_name = user_name;
+        this.status = status;
+        this.image = image;
+        this.thumb_image = thumb_image;
+        this.uid = uid;
+        this.online = online;
+    }
+
     public long getOnline() {
         return online;
     }

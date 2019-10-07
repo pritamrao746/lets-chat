@@ -54,12 +54,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Tabs
         mViewPager= (ViewPager)findViewById(R.id.main_tab_pager);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
+
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+
+
     }
 
     private void sendToStart() {
@@ -91,12 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
          }
          if(item.getItemId()==R.id.main_settings_btn){
-           // Intent settingIntent = new Intent(MainActivity.this,settingsActivity.class);
-             //startActivity(settingIntent);
+             Intent settingIntent = new Intent(MainActivity.this,settingsActivity.class);
+             startActivity(settingIntent);
              //finish();   this was not letting you go back to main activity
-             Intent chatIntent =new Intent(MainActivity.this,ChatActivity.class);
-             chatIntent.putExtra("userId","lcfQa52aBtWZGUv2A546PV1EQju2");
-             startActivity(chatIntent);
+
 
 
 
@@ -132,11 +134,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         dataref.child("online").setValue(0);
-
-
-
-
-
     }
 
 

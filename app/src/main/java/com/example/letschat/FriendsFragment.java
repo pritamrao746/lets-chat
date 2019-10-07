@@ -58,12 +58,12 @@ public class FriendsFragment extends Fragment {
         mFreindRecyclerView = mView.findViewById(R.id.friends_fregment_recycler_view);
         mFreindRecyclerView.setHasFixedSize(true);
         mFreindRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-
         mFriendsList =new ArrayList<UserProfile>();
+        adapter = new MyAdapter(getContext(),mFriendsList,"friendFregment");
+        mFreindRecyclerView.setAdapter(adapter);
 
-       mFriendDatabaseRef.addChildEventListener(new ChildEventListener() {
+
+        mFriendDatabaseRef.addChildEventListener(new ChildEventListener() {
            @Override
            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -76,8 +76,7 @@ public class FriendsFragment extends Fragment {
                        mFriendsList.add(p);
                        Log.i("MSG",p.getUser_name());
 
-
-
+                       adapter.notifyDataSetChanged();
 
                    }
 
@@ -111,11 +110,6 @@ public class FriendsFragment extends Fragment {
            }
        });
 
-
-
-
-        adapter = new MyAdapter(getContext(),mFriendsList,"friendFregment");
-        mFreindRecyclerView.setAdapter(adapter);
 
 
 

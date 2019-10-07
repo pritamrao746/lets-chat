@@ -1,6 +1,7 @@
 package com.example.letschat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,7 @@ public class AllUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_user);
-
+        Log.i("info","this is on creat");
 
 
 

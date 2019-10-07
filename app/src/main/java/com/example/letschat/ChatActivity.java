@@ -95,7 +95,8 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-     //   mChatRef=mRootreff.child("conversation").child("-LqBoATbzOiVP7BcYDKU");
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
@@ -493,11 +494,11 @@ public class ChatActivity extends AppCompatActivity {
 
                 ////for seen feature
                 if(!dataSnapshot.child("sender").getValue().toString().equals( mCurrentUser)&&dataSnapshot.child("seen").getValue().toString().equals("false")){     ///sended by someone else
-                    Log.i("there",message.getMessage());
+
                     mChatRef.child(dataSnapshot.getKey()).child("seen").setValue("true");
                 }
 
-
+                Log.i("there",message.getMessage());
                 mConversationList.add(message);
                 messageAdapter.notifyDataSetChanged();
 

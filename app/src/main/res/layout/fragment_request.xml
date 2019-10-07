@@ -9,6 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Welcome to requests Page" />
+        android:text="Welcome to requests Page"
+        android:textSize="36sp" />
 
 </FrameLayout>
