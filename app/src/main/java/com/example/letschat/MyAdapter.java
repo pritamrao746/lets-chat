@@ -78,7 +78,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         });
 
 
-        if(callBody.equals("friendFregment")){        ///ifff called from friend fregment
+        if(callBody.equals("friendFregment")||callBody.equals("chatFregment")){        ///ifff called from friend fregment
 
 
 
@@ -93,8 +93,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
                 }
             });
+
         }
-        else {
+        else{
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

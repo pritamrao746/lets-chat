@@ -6,13 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -50,7 +56,7 @@ public class ChatsFragment extends Fragment {
         mCurrentUser= FirebaseAuth.getInstance().getUid();
         mRootRef= FirebaseDatabase.getInstance().getReference();
         mChatRef=mRootRef.child("chats").child(mCurrentUser);
-        mConversastionRef=mRootRef.child("conversation");
+
         mUserRef=mRootRef.child("users");
 
 
@@ -63,75 +69,42 @@ public class ChatsFragment extends Fragment {
 
 
 
-
- /*       mChatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mChatRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot d:dataSnapshot.getChildren()){
-                    String chatUser=d.getKey();
-                    String chatUid=dataSnapshot.child(chatUser).getValue().toString();
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+               String chatUser= dataSnapshot.getKey();
 
+               mUserRef.child(chatUser).addValueEventListener(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                       UserProfile p =dataSnapshot.getValue(UserProfile.class);
+                       mChatUserList.add(p);
+                       adapter.notifyDataSetChanged();
 
-                    Log.i("ChatUser",chatUser);
-                    Log.i("chatUid",chatUid);
-                    //UserProfile p =new UserProfile();
+                   }
 
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                   mUserRef.child(chatUser).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String name =dataSnapshot.child("user_name").getValue().toString();
-                            Log.i("user name",name);
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-                    Query query=mConversastionRef.child(chatUid).limitToLast(1);
-                    query.addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                            String lastmessage = dataSnapshot.child("message").getValue().toString();
-                            Log.i("lastMessage",lastmessage);
-
-                        }
-
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                   }
+               });
 
 
 
+            }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
 
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
+            }
 
-
-                }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
 
@@ -141,7 +114,8 @@ public class ChatsFragment extends Fragment {
             }
         });
 
-*/
+
+
 
 
         // Inflate the layout for this fragment

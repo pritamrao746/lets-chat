@@ -5,11 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".RequestFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/request_fregment_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Welcome to requests Page"
-        android:textSize="36sp" />
-
+        android:layout_marginTop="5dp" />
 </FrameLayout>

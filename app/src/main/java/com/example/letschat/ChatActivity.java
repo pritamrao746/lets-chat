@@ -209,18 +209,18 @@ public class ChatActivity extends AppCompatActivity {
 
                     mChatRef=mRootreff.child("conversation").child(mChatId);
 
-
                     Map chatUserMap =new HashMap();
-                    chatUserMap.put("chats/"+mCurrentUser+"/"+mChatUser,mChatId);
-                    chatUserMap.put("chats/"+mChatUser+"/"+mCurrentUser,mChatId);
+                    chatUserMap.put("chats/"+mCurrentUser+"/"+mChatUser+"/chat_id",mChatId);
+                    chatUserMap.put("chats/"+mChatUser+"/"+mCurrentUser+"/chat_id",mChatId);
                   // chatUserMap.put("conversation/"+mChatId,"does exsist");
+
                     mRootreff.updateChildren(chatUserMap);
                     Log.i("set",mChatRef.toString());
-                    loadMessages();
+
 
                 }
                 else{
-                    mChatId=dataSnapshot.child(mChatUser).getValue().toString();
+                    mChatId=dataSnapshot.child(mChatUser).child("chat_id").getValue().toString();
                     mChatRef=mRootreff.child("conversation").child(mChatId);
 
                     Log.i("wellset",mChatRef.toString());
@@ -541,6 +541,8 @@ public class ChatActivity extends AppCompatActivity {
             messageMap.put("seen","false");
             messageMap.put("time",ServerValue.TIMESTAMP);
             messageMap.put("sender",mCurrentUser);
+
+
 
             String uniqeMessageId =mRootreff.push().getKey();
 

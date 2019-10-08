@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.andr.com/apk/res-auto"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatActivity">
+
+
+    <include layout="@layout/app_bar_layout" android:id="@+id/chat_app_bar"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        app2:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="171dp">
+
+        <ImageButton
+            android:id="@+id/chat_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFF"
+            app2:srcCompat="@drawable/baseline_add_black_24dp" />
+
+        <EditText
+            android:id="@+id/chat_message_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:ems="10"
+            android:hint="type in here "
+            android:inputType="textPersonName" />
+
+        <ImageButton
+            android:id="@+id/chat_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#000000"
+            app2:srcCompat="@drawable/baseline_send_white_24dp" />
+    </LinearLayout>
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/chat_swipe_refresh_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app2:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app2:layout_constraintEnd_toEndOf="parent"
+        app2:layout_constraintStart_toStartOf="parent"
+        app2:layout_constraintTop_toBottomOf="@+id/chat_app_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_mesasage_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+
+            android:background="#5E35B1"
+            android:backgroundTint="#2A808080"
+            app2:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app2:layout_constraintEnd_toEndOf="parent"
+            app2:layout_constraintHorizontal_bias="1.0"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toBottomOf="@+id/chat_app_bar"
+            app2:layout_constraintVertical_bias="1.0" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
