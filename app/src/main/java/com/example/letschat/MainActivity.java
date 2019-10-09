@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        dataref= FirebaseDatabase.getInstance().getReference().child("users").
-                child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
 
 
 
@@ -89,8 +88,17 @@ public class MainActivity extends AppCompatActivity {
 
          if(item.getItemId() == R.id.main_logout_btn){
 
-             FirebaseAuth.getInstance().signOut();
+             FirebaseUser currentUser = mAuth.getCurrentUser();   ////if two account from one phone
+             if (currentUser!=null){
 
+                 dataref.child("online").setValue(ServerValue.TIMESTAMP);
+
+             }
+
+
+
+
+             FirebaseAuth.getInstance().signOut();
              sendToStart();
 
          }
@@ -133,7 +141,15 @@ public class MainActivity extends AppCompatActivity {
             sendToStart();
         }
 
-        dataref.child("online").setValue(0);
+        ////only for non null user
+        try {
+            dataref = FirebaseDatabase.getInstance().getReference().child("users").
+                    child(currentUser.getUid());
+            dataref.child("online").setValue(0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -141,8 +157,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        dataref.child("online").setValue(ServerValue.TIMESTAMP);
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser!=null){
+
+            dataref.child("online").setValue(ServerValue.TIMESTAMP);
+
+        }
 
     }
 }

@@ -36,7 +36,7 @@ public class LetsChat extends Application
         Picasso.setSingletonInstance(built);
 
 
-        if(FirebaseAuth.getInstance()!=null) {
+      if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
 
             dataref = FirebaseDatabase.getInstance().getReference().child("users").
                     child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -52,6 +52,9 @@ public class LetsChat extends Application
 
                 }
             });
+
+
+
         }
 
     }
