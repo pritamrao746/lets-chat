@@ -47,7 +47,7 @@ public class AllUserActivity extends AppCompatActivity {
 
         mToolBar=(Toolbar)findViewById(R.id.all_user_app_bar);
         setSupportActionBar(mToolBar);
-        getSupportActionBar().setTitle("All Users");
+        getSupportActionBar().setTitle("Find Friends");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

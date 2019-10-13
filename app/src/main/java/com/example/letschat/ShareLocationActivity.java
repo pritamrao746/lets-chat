@@ -110,8 +110,7 @@ public class ShareLocationActivity extends FragmentActivity implements OnMapRead
                             mMap.clear();
                             mMap.addMarker(new MarkerOptions().position(latLng).title(loc));
                             mMap.addMarker(new MarkerOptions().position(target).title(targ));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10.f));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(target,10.f));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,4.5f));
                         }
                         catch (IOException e)
                         {
@@ -157,8 +156,7 @@ public class ShareLocationActivity extends FragmentActivity implements OnMapRead
                             mMap.clear();
                             mMap.addMarker(new MarkerOptions().position(latLng).title(loc));
                             mMap.addMarker(new MarkerOptions().position(target).title("Target Location"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10.f));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(target,10.f));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,4.5f));
                         }
                         catch (IOException e)
                         {
