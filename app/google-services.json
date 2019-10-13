@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "581182632929-6hrl7tvodi5felhibtd8f1i7n1ki6rh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.letschat",
+            "certificate_hash": "f963d918c9664a4562109b04e21afbe8441004b8"
+          }
+        },
+        {
           "client_id": "581182632929-ga4ldn5tea4jq5uf23amo5pc70q01tvc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -29,7 +37,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCl40GRv9mcYc3_1EzWl83cj4QQHDESmaw"
+          "current_key": "AIzaSyCnWHXGuo-1hBtNgzSB2NtbQw8mvkwtn1E"
         }
       ],
       "services": {
