@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent_layout"
+    android:id="@+id/single_message_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="right">
+    android:gravity="right">
 
-    <LinearLayout
-        android:id="@+id/single_message_linear_layout"
-        android:layout_width="match_parent"
+    <TextView
+
+        android:id="@+id/single_message_text_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_margin="5dp"
 
-        <TextView
-            android:id="@+id/single_message_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/message_bachground_shape"
-            android:gravity="right|end"
-            android:padding="10dp"
-            android:text="Dispaly message"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+        android:background="@drawable/message_bachground_shape"
+        android:padding="10dp"
+        android:text="Dispaly message"
+        android:textColor="@android:color/white"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        />
+
+    <ImageView
+        android:id="@+id/single_message_image"
+        android:layout_width="41dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:layout_alignEnd="@id/single_message_text_view"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/images" />
+
+</RelativeLayout>

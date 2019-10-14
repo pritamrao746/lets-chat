@@ -74,7 +74,7 @@ public class ChatsFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                String chatUser= dataSnapshot.getKey();
 
-               mUserRef.child(chatUser).addValueEventListener(new ValueEventListener() {
+          /*     mUserRef.child(chatUser).addValueEventListener(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        UserProfile p =dataSnapshot.getValue(UserProfile.class);
@@ -88,6 +88,25 @@ public class ChatsFragment extends Fragment {
 
                    }
                });
+
+
+
+           */
+
+            mUserRef.child(chatUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserProfile p =dataSnapshot.getValue(UserProfile.class);
+                    mChatUserList.add(p);
+                    adapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
 
 

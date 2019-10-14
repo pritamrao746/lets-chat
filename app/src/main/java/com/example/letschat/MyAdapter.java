@@ -145,7 +145,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             status =(TextView)itemView.findViewById(R.id.singleUserStatus);
             profileImage =(CircleImageView)itemView.findViewById(R.id.singleUserDisplaImage);
 
-            parentLayout = (ConstraintLayout) itemView.findViewById(R.id.parent_layout);
+            parentLayout = (ConstraintLayout) itemView.findViewById(R.id.single_message_linear_layout);
 
         }
     }

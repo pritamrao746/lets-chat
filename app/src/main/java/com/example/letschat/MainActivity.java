@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
          }
          if(item.getItemId()==R.id.main_settings_btn){
              Intent settingIntent = new Intent(MainActivity.this,settingsActivity.class);
-             startActivity(settingIntent);
+           startActivity(settingIntent);
+
              //finish();   this was not letting you go back to main activity
 
 

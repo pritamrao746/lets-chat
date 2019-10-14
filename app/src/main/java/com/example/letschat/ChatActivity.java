@@ -141,7 +141,7 @@ public class ChatActivity extends AppCompatActivity {
         mMessageList =findViewById(R.id.chat_mesasage_recycler_view);
         mMessageList.setHasFixedSize(true);
         mMessageList.setLayoutManager(new LinearLayoutManager(this));
-        messageAdapter=new MessageAdapter(mConversationList);
+        messageAdapter=new MessageAdapter(ChatActivity.this,mConversationList);
         mMessageList.setAdapter(messageAdapter);
 
 
@@ -327,6 +327,9 @@ public class ChatActivity extends AppCompatActivity {
                     Toast.makeText(ChatActivity.this,"option four selected",Toast.LENGTH_LONG).show();
                     Intent map = new Intent(ChatActivity.this,MapActivity.class);
                     startActivity(map);
+
+
+                    Toast.makeText(ChatActivity.this, MapActivity.currentLocation+"inchat", Toast.LENGTH_SHORT).show();
 
                 }
             }

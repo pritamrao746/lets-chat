@@ -1,9 +1,5 @@
 package com.example.letschat;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void registerUser(final String name, String email, final String password ){
+    private void registerUser(final String name, final String email, final String password ){
 
     mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
         @Override
@@ -138,6 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                     else{
+
                         mRegProgress.hide();
                         Toast.makeText(RegisterActivity.this, "Problem in storing data, Please try again later ", Toast.LENGTH_LONG).show();
 
@@ -149,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
         else{
-
+            String mdsg=task.getException().getMessage();
             mRegProgress.hide();
 
             Toast.makeText(RegisterActivity.this, "There is some problem. Please try again later", Toast.LENGTH_SHORT).show();

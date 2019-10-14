@@ -40,4 +40,14 @@ public class TimeAgo {
         }
     }
 
+
+    public static String hhMM(long timestamp){
+
+        return "10:00";
+
+
+
+
+    }
+
 }
