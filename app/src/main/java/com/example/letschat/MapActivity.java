@@ -74,9 +74,8 @@ public class MapActivity extends AppCompatActivity {
 
                         double latitude = location.getLatitude();
                         double longitude =location.getLongitude();
-                        //instantiate the class Latlng
-                        currentLocation=latitude+"//"+longitude;
-                        Toast.makeText(MapActivity.this,currentLocation, Toast.LENGTH_SHORT).show();
+                        currentLocation=latitude+","+longitude;
+                        //Toast.makeText(MapActivity.this,currentLocation, Toast.LENGTH_SHORT).show();
 
 
 
@@ -114,10 +113,11 @@ public class MapActivity extends AppCompatActivity {
 
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
+                        currentLocation=latitude+","+longitude;
                         //instantiate the class Latlng
-                        LatLng latLng = new LatLng(latitude, longitude);
+                        //LatLng latLng = new LatLng(latitude, longitude);
 
-                        Toast.makeText(MapActivity.this,latLng.toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MapActivity.this,latLng.toString(), Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -143,4 +143,6 @@ public class MapActivity extends AppCompatActivity {
 
 
     }
+
+
 }

@@ -151,7 +151,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     void showLocation(String message){
 
-
+        Intent intent = new Intent(context,ShareLocationActivity.class);
+        intent.putExtra("location",message);
+        context.startActivity(intent);
         
 
     }

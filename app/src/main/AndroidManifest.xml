@@ -24,8 +24,7 @@
             android:value="AIzaSyBza34MMgSvm4PnseW2kGAY7qeMOcchwlI" />
 
         <activity
-            android:name=".ShareLocationActivity"
-            android:label="@string/title_activity_share_location"></activity>
+            android:name=".ShareLocationActivity"></activity>
         <activity android:name=".MapActivity" />
         <activity
             android:name=".ChatActivity"
