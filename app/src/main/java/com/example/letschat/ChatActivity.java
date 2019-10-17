@@ -573,6 +573,18 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
 
+            mChatIdRef.child(mChatUser).child("last_message_time").setValue(ServerValue.TIMESTAMP);
+            mChatIdRef.child(mChatUser).child("last_message").setValue(message);
+            mChatIdRef.child(mChatUser).child("sender").setValue(mCurrentUser);
+            mChatIdRef.child(mChatUser).child("seen").setValue("false");
+
+
+            mRootreff.child("chats").child(mChatUser).child(mCurrentUser).child("last_message_time").setValue(ServerValue.TIMESTAMP);
+            mRootreff.child("chats").child(mChatUser).child(mCurrentUser).child("last_message").setValue(message);
+            mRootreff.child("chats").child(mChatUser).child(mCurrentUser).child("sender").setValue(mCurrentUser);
+            mRootreff.child("chats").child(mChatUser).child(mCurrentUser).child("seen").setValue("false");
+
+
         }
 
     }

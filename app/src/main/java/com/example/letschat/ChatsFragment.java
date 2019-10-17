@@ -72,7 +72,7 @@ public class ChatsFragment extends Fragment {
         mChatRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-               String chatUser= dataSnapshot.getKey();
+               final String chatUser= dataSnapshot.getKey();
 
           /*     mUserRef.child(chatUser).addValueEventListener(new ValueEventListener() {
                    @Override
@@ -96,6 +96,7 @@ public class ChatsFragment extends Fragment {
             mUserRef.child(chatUser).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                     UserProfile p =dataSnapshot.getValue(UserProfile.class);
                     mChatUserList.add(p);
                     adapter.notifyDataSetChanged();

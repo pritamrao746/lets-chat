@@ -2,9 +2,10 @@ package com.example.letschat;
 
 public class UserProfile {
     private String user_name;
+    private String thumb_image;
     private String status;
     private String image;
-    private String thumb_image;
+
     private String uid;
     private long online ;
 

@@ -82,7 +82,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
 
 
-
             holder.profileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -95,12 +94,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
                 }
             });
-
-
-
-
-
-
 
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -153,6 +146,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
         TextView name ;
         TextView status;
+
         CircleImageView profileImage;
         ConstraintLayout parentLayout;
 
