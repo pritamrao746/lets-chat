@@ -83,6 +83,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
 
 
+            holder.profileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    String id = userList.get(position).getUid();
+                    Intent profileIntent = new Intent(context, UserProfilePage.class);
+                    profileIntent.putExtra("userId", id);
+                    context.startActivity(profileIntent);
+
+                }
+            });
+
+
+
+
+
+
+
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

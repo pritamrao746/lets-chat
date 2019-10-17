@@ -1,5 +1,6 @@
 package com.example.letschat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public class TimeAgo {
 
         long now = currentDate().getTime();
         if (time > now || time <= 0) {
-            return "in the future";
+            return "";
         }
 
         final long diff = now - time;
@@ -42,8 +43,12 @@ public class TimeAgo {
 
 
     public static String hhMM(long timestamp){
+        final String timeString =
+                new SimpleDateFormat("HH:mm:ss:SSS").format(timestamp);
+        String HHmm=timeString.substring(0,5);
 
-        return "10:00";
+
+        return HHmm;
 
 
 

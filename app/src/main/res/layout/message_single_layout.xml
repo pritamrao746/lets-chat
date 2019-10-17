@@ -5,7 +5,7 @@
     android:id="@+id/single_message_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="right">
+    android:gravity="left">
 
     <TextView
 
@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/single_message_image"
-        android:layout_width="41dp"
-        android:layout_height="39dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
@@ -32,8 +32,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
-        android:layout_alignEnd="@id/single_message_text_view"
-        android:visibility="invisible"
-        app:srcCompat="@drawable/images" />
+
+        android:visibility="invisible" />
 
 </RelativeLayout>

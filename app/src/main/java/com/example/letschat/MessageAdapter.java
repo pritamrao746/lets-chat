@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,105 +52,81 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(@NonNull final MessageViewHolder holder, int position) {
-        final String message =mMessageList.get(position).getMessage();
 
-        String messageTime=TimeAgo.hhMM(mMessageList.get(position).getTime());
+        final String message = mMessageList.get(position).getMessage();
+
+        String messageTime = TimeAgo.hhMM(mMessageList.get(position).getTime());
+
         String seenStatus = mMessageList.get(position).getSeen();
 
 
+        if (mMessageList.get(position).getSender().equals(mCurrentUser)) {   ///current user's message
 
-        if(mMessageList.get(position).getSender().equals(mCurrentUser)){   ///current user's message
+            holder.messageLinearLayout.setGravity(5);   ////right messsage
 
-            holder.messageLinearLayout.setGravity(5);
+        } else {
+            holder.messageLinearLayout.setGravity(3);                ///other peoples mesage
+        }
 
-            if(mMessageList.get(position).getType().equals("text")){
+        if (mMessageList.get(position).getType().equals("text")) {
 
-                holder.message.setBackgroundColor(Color.WHITE);
-                holder.message.setTextColor(Color.BLACK);
-
-                holder.message.setText(message +"\n"+messageTime);
-                holder.messageImage.setVisibility(View.INVISIBLE);
-                holder.message.setVisibility(View.VISIBLE);
-
-
-            }
-
-            else{
-                holder.messageImage.setVisibility(View.VISIBLE);
-                holder.message.setVisibility(View.INVISIBLE);
-
-
-                holder.messageImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                         Intent webIntent =new Intent(Intent.ACTION_VIEW);
-                         webIntent.setData(Uri.parse(message));
-
-                        context.startActivity(webIntent);
-
-                        Log.i("onclick",message);
-
-                    }
-                });
-
-
-            }
+            holder.message.setBackgroundColor(Color.WHITE);
+            holder.message.setTextColor(Color.BLACK);
+            holder.message.setText(message + "\n"+seenStatus+"  " + messageTime);
+            holder.messageImage.setVisibility(View.GONE);
+            holder.message.setVisibility(View.VISIBLE);
 
 
         }
-        else{                                                               ///other peoples mesage
+        else if(mMessageList.get(position).getType().equals("image")){
+            holder.messageImage.setVisibility(View.VISIBLE);
+            holder.message.setVisibility(View.INVISIBLE);
 
-            holder.messageLinearLayout.setGravity(3);
-
-
-            if(mMessageList.get(position).getType().equals("text")){
-
-                holder.message.setBackgroundColor(Color.WHITE);
-                holder.message.setTextColor(Color.BLACK);
-                holder.message.setText(message +"\n"+messageTime);
-                holder.messageImage.setVisibility(View.INVISIBLE);
-                holder.message.setVisibility(View.VISIBLE);
-
-
-            }
-            if(mMessageList.get(position).getType().equals("location")){
-                showLocation(message);
-            }
-
-
-            else{
-                holder.messageImage.setVisibility(View.VISIBLE);
-                holder.message.setVisibility(View.INVISIBLE);
-                holder.messageImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent webIntent =new Intent(Intent.ACTION_VIEW);
-                        webIntent.setData(Uri.parse(message));
-
-                        context.startActivity(webIntent);
-                        Log.i("onclick",message);
-
-                    }
-                });
-
-
-
-
-
-
-            }
-
-
-
+            Picasso.with(context).load(message)
+                    .placeholder(R.drawable.images).into(holder.messageImage);
 
         }
 
+        else if (mMessageList.get(position).getType().equals("location")) {
+
+            holder.messageImage.setVisibility(View.VISIBLE);
+            holder.message.setVisibility(View.INVISIBLE);
+            holder.messageImage.setImageResource(R.drawable.images);
+
+            holder.messageImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showLocation(message);
+
+                }
+            });
+
+        }
+        else {                          /////for pdf and doc file
+            holder.messageImage.setVisibility(View.VISIBLE);
+            holder.message.setVisibility(View.INVISIBLE);
+            holder.messageImage.setImageResource(R.drawable.images);
+            holder.messageImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW);
+                    webIntent.setData(Uri.parse(message));
+
+                    context.startActivity(webIntent);
+                    Log.i("onclick", message);
+
+                }
+            });
+
+        }
     }
 
 
 
 
+
     void showLocation(String message){
+
 
         Intent intent = new Intent(context,ShareLocationActivity.class);
         intent.putExtra("location",message);

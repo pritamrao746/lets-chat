@@ -62,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
     StorageReference mStoragRef;
 
     private String mCurrentUser;
-
+    String mChatId;
 
 
     private ImageButton mChatAddButton;
@@ -202,7 +202,7 @@ public class ChatActivity extends AppCompatActivity {
         mChatIdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String mChatId;
+
 
                 if(!dataSnapshot.hasChild(mChatUser)){
                     mChatId =mRootreff.push().getKey();
@@ -320,16 +320,24 @@ public class ChatActivity extends AppCompatActivity {
                 {
                     Toast.makeText(ChatActivity.this,"option three selected",Toast.LENGTH_LONG).show();
 
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setType("application/msword");
+                    startActivityForResult(intent.createChooser(intent,"Select doc File"),2);
+
+
                 }
 
                 if(position==3)
                 {
                     Toast.makeText(ChatActivity.this,"option four selected",Toast.LENGTH_LONG).show();
                     Intent map = new Intent(ChatActivity.this,MapActivity.class);
+                    map.putExtra("chatId",mChatId);
+
                     startActivity(map);
 
 
-                    Toast.makeText(ChatActivity.this, MapActivity.currentLocation+"inchat", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(ChatActivity.this, MapActivity.currentLocation+"inchat", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -403,6 +411,13 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
 
+
+
+
+
+            }
+            if(requestCode==2){
+                Toast.makeText(this, "doc file selected", Toast.LENGTH_SHORT).show();
 
 
             }
