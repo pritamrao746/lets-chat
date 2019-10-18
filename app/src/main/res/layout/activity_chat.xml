@@ -19,6 +19,7 @@
         android:orientation="horizontal"
         android:weightSum="10"
         app2:layout_constraintBottom_toBottomOf="parent"
+
         tools:layout_editor_absoluteX="171dp">
 
         <ImageButton
@@ -36,7 +37,9 @@
             android:layout_weight="8"
             android:ems="10"
             android:hint="type in here "
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:background="@drawable/message_background_white"
+            />
 
         <ImageButton
             android:id="@+id/chat_send_button"

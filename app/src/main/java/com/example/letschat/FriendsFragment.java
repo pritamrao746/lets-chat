@@ -69,7 +69,8 @@ public class FriendsFragment extends Fragment {
 
                String friendUser = dataSnapshot.getKey();
                DatabaseReference singleFriend =mFriendProfileRef.child(friendUser);
-               singleFriend.addValueEventListener(new ValueEventListener() {
+
+               singleFriend.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        UserProfile p = dataSnapshot.getValue(UserProfile.class);

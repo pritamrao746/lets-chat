@@ -116,6 +116,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             Picasso.with(context).load(message)
                     .placeholder(R.drawable.images).into(holder.messageImage);
 
+            holder.messageImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,ShowImage.class);
+                    intent.putExtra("imageUrl",message);
+                    context.startActivity(intent);
+                }
+            });
+
         }
 
         else if (mMessageList.get(position).getType().equals("location")) {

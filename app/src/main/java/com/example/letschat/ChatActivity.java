@@ -199,7 +199,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
         ////// conversation
-        mChatIdRef.addValueEventListener(new ValueEventListener() {
+        mChatIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
