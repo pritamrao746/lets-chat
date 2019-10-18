@@ -38,8 +38,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         this.userList = userList;
         this.callBody=callBody;
 
-
-
     }
 
 

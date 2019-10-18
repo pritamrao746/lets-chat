@@ -3,6 +3,10 @@ package com.example.letschat;
 import com.google.firebase.database.ServerValue;
 
 public class ChatUserProfie {
+    private String chat_id;
+
+
+
     private String user_name;
     private String thumb_image;
     private long  last_message_time;
@@ -10,6 +14,13 @@ public class ChatUserProfie {
     private String sender;
     private String seen;
 
+    public String getChat_id() {
+        return chat_id;
+    }
+
+    public void setChat_id(String chat_id) {
+        this.chat_id = chat_id;
+    }
 
     public ChatUserProfie() {
     }

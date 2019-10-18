@@ -2,6 +2,7 @@ package com.example.letschat;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,8 @@ public class ChatsFragment extends Fragment {
 
 
 
-    private MyAdapter adapter;
+
+    private ChatAdapter adapter;
     private DatabaseReference mRootRef;
     private DatabaseReference mChatRef;
     private DatabaseReference mConversastionRef;
@@ -39,9 +41,9 @@ public class ChatsFragment extends Fragment {
 
     private String mCurrentUser;
     private RecyclerView mChatRecylerView;
-    private ArrayList<UserProfile> mChatUserList;
 
 
+    private ArrayList<ChatUserProfie> mChatUserList;
 
     public ChatsFragment() {
         // Required empty public constructor
@@ -56,29 +58,52 @@ public class ChatsFragment extends Fragment {
 
         mCurrentUser= FirebaseAuth.getInstance().getUid();
         mRootRef= FirebaseDatabase.getInstance().getReference();
-        mChatRef=mRootRef.child("chats").child(mCurrentUser);
 
+        mChatRef=mRootRef.child("chats").child(mCurrentUser);
         mUserRef=mRootRef.child("users");
 
 
-        mChatUserList=new ArrayList<UserProfile>();
+        mChatUserList=new ArrayList<ChatUserProfie>();
+
         mChatRecylerView =mView.findViewById(R.id.chat_fregment_recycler_view);
         mChatRecylerView.setHasFixedSize(true);
         mChatRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter=new MyAdapter(getContext(),mChatUserList,"chatFregment");
+        adapter = new ChatAdapter(getContext(),mChatUserList);
         mChatRecylerView.setAdapter(adapter);
 
 
+
+
        Query chatQuery=mChatRef.orderByChild("last_message_time");
+       chatQuery.addValueEventListener(new ValueEventListener() {
+
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               for(DataSnapshot d:dataSnapshot.getChildren()) {
+
+                   ChatUserProfie p = d.getValue(ChatUserProfie.class);
+                   mChatUserList.add(p);
+                   adapter.notifyDataSetChanged();
+
+
+               }
+
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
 
 
 
-        mChatRef.addChildEventListener(new ChildEventListener() {
+   /*    mChatRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                final String chatUser= dataSnapshot.getKey();
 
-          /*     mUserRef.child(chatUser).addValueEventListener(new ValueEventListener() {
+            mUserRef.child(chatUser).addValueEventListener(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        UserProfile p =dataSnapshot.getValue(UserProfile.class);
@@ -93,7 +118,7 @@ public class ChatsFragment extends Fragment {
                    }
                });
 
-           */
+
 
             mUserRef.child(chatUser).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -137,7 +162,7 @@ public class ChatsFragment extends Fragment {
         });
 
 
-
+*/
 
 
         // Inflate the layout for this fragment
