@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">chat bot</string>
+    <string name="app_name">Let\'s Chat</string>
     <string name="this_is_main_page">This is main page</string>
     <string name="need_a_new_account">NEED A NEW ACCOUNT</string>
     <string name="Name">Name</string>
@@ -31,5 +31,7 @@
     <string name="current_user_status">Current User Status</string>
     <string name="total_friends">Total Friends</string>
     <string name="title_activity_share_location">Map</string>
+    <string name="username">username</string>
+    <string name="Username">Username</string>
 
 </resources>

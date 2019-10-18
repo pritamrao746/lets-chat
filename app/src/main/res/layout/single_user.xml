@@ -10,8 +10,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/singleUserDisplaImage"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="71dp"
+        android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -20,12 +20,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/singleUserDisplayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/display_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -45,10 +46,9 @@
         app:layout_constraintStart_toEndOf="@+id/singleUserDisplaImage"
         app:layout_constraintTop_toBottomOf="@+id/singleUserDisplayName" />
 
-
     <View
         android:id="@+id/divider"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0.5dp"
         android:layout_marginTop="14dp"
         android:background="?android:attr/listDivider"

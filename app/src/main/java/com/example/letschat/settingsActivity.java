@@ -104,6 +104,8 @@ public class settingsActivity extends AppCompatActivity {
         current_user= FirebaseAuth.getInstance().getCurrentUser();
         String currentUserUid=current_user.getUid();
 
+
+
         //getting the data from the database
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
