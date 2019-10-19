@@ -60,6 +60,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         String lastMessage=userList.get(position).getLast_message();
 
 
+
+
         holder.lastMessage.setText(lastMessage);
 
 
