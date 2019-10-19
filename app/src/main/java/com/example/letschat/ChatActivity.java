@@ -433,7 +433,7 @@ public class ChatActivity extends AppCompatActivity {
     private void loadMoreMessages() {
 
 
-        Query messageQuery =mChatRef.orderByKey().endAt(mLastMessageKey).limitToLast(5);
+        Query messageQuery =mChatRef.orderByKey().endAt(mLastMessageKey).limitToLast(10);
 
         messageQuery.addChildEventListener(new ChildEventListener() {
 
@@ -499,7 +499,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void loadMessages() {
 
-           Query messageQuery =mChatRef.limitToLast(5);
+           Query messageQuery =mChatRef.limitToLast(10);
            messageQuery.addChildEventListener(new ChildEventListener() {
                int i=0;
             @Override
@@ -516,7 +516,7 @@ public class ChatActivity extends AppCompatActivity {
                     mChatRef.child(dataSnapshot.getKey()).child("seen").setValue("true");
                 }
 
-                Log.i("there",message.getMessage());
+
                 mConversationList.add(message);
                 messageAdapter.notifyDataSetChanged();
 
@@ -525,6 +525,18 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                   String message =dataSnapshot.child("message").getValue().toString();         ////dynamically seen status
+                int i=0;
+                    for(;i<mConversationList.size();i++){
+                        if(mConversationList.get(i).getMessage().equals(message)){
+                            break;
+                        }
+                    }
+                    if(message.equals(mConversationList.get(i).getMessage())){
+                        mConversationList.get(i).setSeen("true");
+                        messageAdapter.notifyDataSetChanged();
+                    }
+
 
             }
 
@@ -572,6 +584,13 @@ public class ChatActivity extends AppCompatActivity {
                     Toast.makeText(ChatActivity.this,"can't write in database",Toast.LENGTH_LONG).show();
                 }
             });
+            if(type.equals("image")){
+                message="photo";
+            }
+            else if(type.equals("pdf")){
+                message="pdf file";
+            }
+
 
             mChatIdRef.child(mChatUser).child("last_message_time").setValue(ServerValue.TIMESTAMP);
             mChatIdRef.child(mChatUser).child("last_message").setValue(message);

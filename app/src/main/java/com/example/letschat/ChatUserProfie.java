@@ -4,15 +4,21 @@ import com.google.firebase.database.ServerValue;
 
 public class ChatUserProfie {
     private String chat_id;
-
-
-
+    private String userId;
     private String user_name;
     private String thumb_image;
     private long  last_message_time;
     private String last_message;
     private String sender;
     private String seen;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getChat_id() {
         return chat_id;

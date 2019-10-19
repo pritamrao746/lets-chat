@@ -49,15 +49,13 @@ public class TimeAgo {
         String gap="am";
         String HH=timeString.substring(0,2);
         int hh =Integer.parseInt(HH);
-        if(hh>12){
+        if(hh>=12){
             hh=hh-12;
             gap="pm";
         }
 
 
         String HHmm=hh+timeString.substring(2,5)+gap;
-
-
         return HHmm;
 
 

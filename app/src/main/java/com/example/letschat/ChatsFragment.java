@@ -64,7 +64,6 @@ public class ChatsFragment extends Fragment {
 
 
         mChatUserList=new ArrayList<ChatUserProfie>();
-
         mChatRecylerView =mView.findViewById(R.id.chat_fregment_recycler_view);
         mChatRecylerView.setHasFixedSize(true);
         mChatRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,11 +78,18 @@ public class ChatsFragment extends Fragment {
 
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+               mChatUserList.clear();
+
                for(DataSnapshot d:dataSnapshot.getChildren()) {
 
                    ChatUserProfie p = d.getValue(ChatUserProfie.class);
-                   mChatUserList.add(p);
+                   p.setUserId(d.getKey());
+                   Log.i("UserId",d.getKey());
+                   mChatUserList.add(0,p);
                    adapter.notifyDataSetChanged();
+
+
 
 
                }
