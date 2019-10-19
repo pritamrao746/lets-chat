@@ -15,39 +15,50 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="#eeeeee"
         android:gravity="bottom"
         android:orientation="horizontal"
+
+
         android:weightSum="10"
         app2:layout_constraintBottom_toBottomOf="parent"
-
         tools:layout_editor_absoluteX="171dp">
 
-        <ImageButton
+
+        <ImageView
             android:id="@+id/chat_add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:backgroundTint="#00FFFF"
-            app2:srcCompat="@drawable/baseline_add_black_24dp" />
+            android:background="@drawable/share" />
+
 
         <EditText
             android:id="@+id/chat_message_edit_text"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="8"
+            android:background="@drawable/message_background_white"
             android:ems="10"
             android:hint="type in here "
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:inputType="textPersonName"
-            android:background="@drawable/message_background_white"
-            />
+            android:paddingLeft="16dp" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/chat_send_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+
             android:layout_weight="1"
-            android:backgroundTint="#000000"
-            app2:srcCompat="@drawable/baseline_send_white_24dp" />
+            android:background="@drawable/send" />
+
+
     </LinearLayout>
 
 
@@ -55,6 +66,7 @@
         android:id="@+id/chat_swipe_refresh_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/chat_background"
         app2:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app2:layout_constraintEnd_toEndOf="parent"
         app2:layout_constraintStart_toStartOf="parent"
