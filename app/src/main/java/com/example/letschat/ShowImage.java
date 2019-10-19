@@ -21,7 +21,7 @@ public class ShowImage extends AppCompatActivity {
         mToolBar=(Toolbar)findViewById(R.id.image_layout_bar);
         setSupportActionBar(mToolBar);
         getSupportActionBar().setTitle("Image");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         chatImage = (ImageView)findViewById(R.id.chat_image);
 
