@@ -74,6 +74,7 @@
         >
 
         <ImageView
+            android:layout_margin="4dp"
             android:id="@+id/single_message_image"
             android:layout_width="240dp"
             android:layout_height="240dp"
