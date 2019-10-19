@@ -5,26 +5,54 @@
     android:id="@+id/single_message_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="left">
+    android:gravity="left"
+    >
+
 
     <TextView
+
 
         android:id="@+id/single_message_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/message_bachground_shape"
-        android:padding="10dp"
+        android:maxWidth="320dp"
+        android:padding="8dp"
         android:text="Dispaly message"
         android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
-        />
+
+    <ImageView
+        android:id="@+id/seen_status"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/single_message_time"
+        android:layout_alignBottom="@+id/single_message_text_view"
+        android:layout_marginLeft="-25dp"
+        android:layout_marginBottom="-18dp"
+        android:background="@drawable/singletick" />
+
+    <TextView
+        android:id="@+id/single_message_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/single_message_text_view"
+        android:layout_alignRight="@+id/single_message_text_view"
+        android:layout_marginTop="-3dp"
+        android:text="time"
+        android:textSize="12sp">
+
+
+    </TextView>
 
     <ImageView
         android:id="@+id/single_message_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="276dp"
+        android:layout_height="276dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
@@ -32,6 +60,9 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
+        android:maxWidth="276dp"
+        android:maxHeight="276dp"
+        android:scaleType="centerCrop"
 
         android:visibility="invisible" />
 

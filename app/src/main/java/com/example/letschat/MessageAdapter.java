@@ -2,6 +2,7 @@ package com.example.letschat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,15 +65,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if (mMessageList.get(position).getSender().equals(mCurrentUser)) {   ///current user's message
 
             holder.messageLinearLayout.setGravity(5);   ////right messsage
+            holder.message.setBackgroundColor(Color.WHITE);
+            holder.message.setTextColor(Color.BLACK);
 
         } else {
             holder.messageLinearLayout.setGravity(3);                ///other peoples mesage
+            int color = ContextCompat.getColor(context,R.color.colorAccent);
+            holder.message.setBackgroundColor(color);
+            holder.message.setTextColor(Color.WHITE);
         }
 
         if (mMessageList.get(position).getType().equals("text")) {
 
-            holder.message.setBackgroundColor(Color.WHITE);
-            holder.message.setTextColor(Color.BLACK);
+
+
             holder.message.setText(message + "\n"+seenStatus+"  " + messageTime);
             holder.messageImage.setVisibility(View.GONE);
             holder.message.setVisibility(View.VISIBLE);
@@ -91,7 +98,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             holder.messageImage.setVisibility(View.VISIBLE);
             holder.message.setVisibility(View.INVISIBLE);
-            holder.messageImage.setImageResource(R.drawable.images);
+            holder.messageImage.setImageResource(R.drawable.mapdefault);
 
             holder.messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,7 +112,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         else {                          /////for pdf and doc file
             holder.messageImage.setVisibility(View.VISIBLE);
             holder.message.setVisibility(View.INVISIBLE);
-            holder.messageImage.setImageResource(R.drawable.images);
+            holder.messageImage.setImageResource(R.drawable.pdf);
             holder.messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
