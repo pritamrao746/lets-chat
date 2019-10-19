@@ -32,7 +32,7 @@ public class MapActivity extends AppCompatActivity {
 
     public static String currentLocation;     // / / / /some shit
    private Button shareBtn;
-   private Button viewBtn;
+
 
     DatabaseReference mRootreff;
     DatabaseReference mChatRef;
@@ -55,7 +55,7 @@ public class MapActivity extends AppCompatActivity {
 
 
         shareBtn = (Button)findViewById(R.id.share_loc);
-        viewBtn = (Button) findViewById(R.id.view_loc);
+
         locationManager= (LocationManager)getSystemService(LOCATION_SERVICE);
 
         shareBtn.setOnClickListener(new View.OnClickListener() {
@@ -68,14 +68,7 @@ public class MapActivity extends AppCompatActivity {
                 }
         });
 
-        viewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent shareLocIntent = new Intent(MapActivity.this,ShareLocationActivity.class);
-                startActivity(shareLocIntent);
-            }
-        });
 
     }
 

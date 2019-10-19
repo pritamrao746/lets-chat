@@ -4,30 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dark_map"
     tools:context=".MapActivity">
 
     <Button
         android:id="@+id/share_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="207dp"
+        android:layout_height="62dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#e5e5e5"
         android:text="Share Location"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.436" />
-
-    <Button
-        android:id="@+id/view_loc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
