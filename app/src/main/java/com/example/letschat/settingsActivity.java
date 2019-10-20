@@ -67,6 +67,8 @@ public class settingsActivity extends AppCompatActivity {
     private Button changeStatusButton;
     private Button changeImageButton;
 
+    private  String image;
+
 
 
    // private static final int GALLERY_PICK=1;    ////to use gallery intent to pick the image
@@ -116,7 +118,7 @@ public class settingsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 String name =dataSnapshot.child("user_name").getValue().toString();
-               final String image=dataSnapshot.child("image").getValue().toString();
+                image=dataSnapshot.child("image").getValue().toString();
                 String status=dataSnapshot.child("status").getValue().toString();
                 String thumbnail =dataSnapshot.child("thumb_image").getValue().toString();
 
@@ -202,6 +204,20 @@ public class settingsActivity extends AppCompatActivity {
             }
 
         });
+
+
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(settingsActivity.this,ShowImage.class);
+                intent.putExtra("imageUrl",image);
+                startActivity(intent);
+
+            }
+        });
+
+
 
     }
 

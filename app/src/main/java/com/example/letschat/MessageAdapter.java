@@ -2,6 +2,7 @@ package com.example.letschat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -9,10 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,8 +59,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         final String message = mMessageList.get(position).getMessage();
 
         String messageTime = TimeAgo.hhMM(mMessageList.get(position).getTime());
-
-
         String seenStatus;
         if(mMessageList.get(position).getSeen().equals("true")) {
             seenStatus = "**";
@@ -66,55 +67,57 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
 
 
+        holder.messageTime.setTextColor(Color.BLACK);
+        holder.shareTime.setTextColor(Color.BLACK);
+
 
         if (mMessageList.get(position).getSender().equals(mCurrentUser)) {   ///current user's message
 
             holder.messageLinearLayout.setGravity(5);   ////right messsage
-
-            holder.message.setBackgroundResource(R.drawable.message_background_white);
+            //holder.messageLayout.setBackgroundColor(Color.WHITE);
+            holder.messageLayout.setBackgroundResource(R.drawable.message_background_white);
             holder.message.setTextColor(Color.BLACK);
-            holder.message.setText(message + "\n"+seenStatus+"   " + messageTime);
+            holder.message.setText(message );
 
 
-
-
-
-            holder.message.setGravity(5);
-
-        }
-        else {
+        } else {
             holder.messageLinearLayout.setGravity(3);                ///other peoples mesage
-
-
-
-
-            holder.message.setBackgroundResource(R.drawable.message_bachground_shape);
+            holder.messageLayout.setBackgroundResource(R.drawable.message_bachground_shape);
             holder.message.setTextColor(Color.WHITE);
-            holder.message.setText(message + "\n" + messageTime);
+            holder.message.setText(message );
 
-
-            holder.message.setGravity(3);
 
         }
 
         if (mMessageList.get(position).getType().equals("text")) {
 
-           // holder.message.setBackgroundColor(Color.WHITE);
-          //  holder.message.setTextColor(Color.BLACK);
-          //  holder.message.setText(message + "\n"+seenStatus+"  " + messageTime);
-            holder.messageImage.setVisibility(View.GONE);
-            holder.message.setVisibility(View.VISIBLE);
+
+
+           // holder.message.setText(message + "\n"+seenStatus+"  " + messageTime);
+            holder.shareLayout.setVisibility(View.GONE);
+            holder.messageLayout.setVisibility(View.VISIBLE);
+            holder.messageTime.setText(messageTime);
+            if(seenStatus.equals("**"))
+                holder.messageSeenStatus.setBackgroundResource(R.drawable.doubletick);
+            else
+                holder.messageSeenStatus.setBackgroundResource(R.drawable.singletick);
 
 
         }
         else if(mMessageList.get(position).getType().equals("image")){
-            holder.messageImage.setVisibility(View.VISIBLE);
-            holder.message.setVisibility(View.GONE);
+            holder.shareLayout.setVisibility(View.VISIBLE);
+            holder.messageLayout.setVisibility(View.GONE);
 
-
-
+            holder.shareTime.setText(messageTime);
             Picasso.with(context).load(message)
                     .placeholder(R.drawable.images).into(holder.messageImage);
+
+
+            if(seenStatus.equals("**"))
+                holder.shareSeenStatus.setBackgroundResource(R.drawable.doubletick);
+            else
+                holder.shareSeenStatus.setBackgroundResource(R.drawable.singletick);
+
 
             holder.messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,14 +132,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         else if (mMessageList.get(position).getType().equals("location")) {
 
-            holder.messageImage.setVisibility(View.VISIBLE);
-            holder.message.setVisibility(View.GONE);
-            holder.messageImage.setImageResource(R.drawable.images);
+            holder.messageLayout.setVisibility(View.GONE);
+            holder.shareLayout.setVisibility(View.VISIBLE);
+            holder.messageImage.setImageResource(R.drawable.map);
+            holder.shareTime.setText(messageTime);
+
+
+            if(seenStatus.equals("**"))
+                holder.shareSeenStatus.setBackgroundResource(R.drawable.doubletick);
+            else
+                holder.shareSeenStatus.setBackgroundResource(R.drawable.singletick);
 
             holder.messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     showLocation(message);
 
                 }
@@ -144,14 +153,24 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         }
         else {                          /////for pdf and doc file
-            holder.messageImage.setVisibility(View.VISIBLE);
-            holder.message.setVisibility(View.GONE);
-            holder.messageImage.setImageResource(R.drawable.images);
+            holder.shareLayout.setVisibility(View.VISIBLE);
+            holder.messageLayout.setVisibility(View.GONE);
+
+            holder.messageImage.setImageResource(R.drawable.pdf);
+            holder.shareTime.setText(messageTime);
+
+
+            if(seenStatus.equals("**"))
+                holder.shareSeenStatus.setBackgroundResource(R.drawable.doubletick);
+            else
+                holder.shareSeenStatus.setBackgroundResource(R.drawable.singletick);
+
             holder.messageImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent webIntent = new Intent(Intent.ACTION_VIEW);
                     webIntent.setData(Uri.parse(message));
+
                     context.startActivity(webIntent);
                     Log.i("onclick", message);
 
@@ -187,6 +206,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         RelativeLayout messageLinearLayout;
         ImageView messageImage;
 
+
+        //pritam
+        private LinearLayout messageLayout;
+        private LinearLayout shareLayout;
+        private TextView shareTime,messageTime;
+        private ImageView shareSeenStatus,messageSeenStatus;
+
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
             v=itemView;
@@ -194,7 +220,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             messageLinearLayout=(itemView).findViewById(R.id.single_message_linear_layout);
             messageImage=(itemView).findViewById(R.id.single_message_image);
 
+            //pritam
+            messageLayout=(itemView).findViewById(R.id.message_layout);
+            shareLayout=(itemView).findViewById(R.id.share_layout);
 
+            shareTime=(itemView).findViewById(R.id.share_time);
+            messageTime=(itemView).findViewById(R.id.message_time);
+
+            shareSeenStatus =(itemView).findViewById(R.id.share_seen_status);
+            messageSeenStatus=(itemView).findViewById(R.id.message_seen_status);
 
 
 

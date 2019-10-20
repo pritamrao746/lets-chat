@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,8 +67,8 @@ public class ChatActivity extends AppCompatActivity {
     String mChatId;
 
 
-    private ImageButton mChatAddButton;
-    private ImageButton mChatSendButton;
+    private ImageView mChatAddButton;
+    private ImageView mChatSendButton;
     private EditText mchatMessage;
 
     private RecyclerView mMessageList;
