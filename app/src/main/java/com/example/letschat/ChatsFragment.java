@@ -85,7 +85,6 @@ public class ChatsFragment extends Fragment {
 
                    ChatUserProfie p = d.getValue(ChatUserProfie.class);
                    p.setUserId(d.getKey());
-                   Log.i("UserId",d.getKey());
                    mChatUserList.add(0,p);
                    adapter.notifyDataSetChanged();
 

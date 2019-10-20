@@ -46,16 +46,17 @@ public class TimeAgo {
         final String timeString =
                 new SimpleDateFormat("HH:mm:ss:SSS").format(timestamp);
 
-        String gap="am";
+      //  String gap="am";
         String HH=timeString.substring(0,2);
         int hh =Integer.parseInt(HH);
         if(hh>=12){
             hh=hh-12;
-            gap="pm";
+          //  gap="pm";
         }
 
 
-        String HHmm=hh+timeString.substring(2,5)+gap;
+    //    String HHmm=hh+timeString.substring(2,5)+gap;
+        String HHmm=hh+timeString.substring(2,5);
         return HHmm;
 
 

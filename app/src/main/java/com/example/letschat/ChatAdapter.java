@@ -47,7 +47,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         mUserRef= FirebaseDatabase.getInstance().getReference().child("users");
-        mCurrentUser= FirebaseAuth.getInstance().getUid();
+        mCurrentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.single_user,parent,false));
 
@@ -58,12 +58,22 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
         final String chatUser=userList.get(position).getUserId();       //opossing user
         String lastMessage=userList.get(position).getLast_message();
+        String messageTime =TimeAgo.hhMM(userList.get(position).getLast_message_time());
 
 
 
+        if(mCurrentUser.equals(userList.get(position).getSender())){
+
+            if("true".equals(userList.get(position).getSeen()))
+                lastMessage="**  "+lastMessage;
+            else
+                lastMessage="*  "+lastMessage;
+
+        }
 
         holder.lastMessage.setText(lastMessage);
-
+        holder.lastMessageTime.setVisibility(View.VISIBLE);
+        holder.lastMessageTime.setText(messageTime);
 
      mUserRef.child(chatUser).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -122,7 +132,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
         TextView name ;
         TextView lastMessage;
-        TextView LastMessageTime;
+        TextView lastMessageTime;
 
         CircleImageView profileImage;
         ConstraintLayout parentLayout;
@@ -135,7 +145,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             lastMessage =(TextView)itemView.findViewById(R.id.singleUserStatus);
             profileImage =(CircleImageView)itemView.findViewById(R.id.singleUserDisplaImage);
             parentLayout = (ConstraintLayout) itemView.findViewById(R.id.single_message_linear_layout);
-
+            lastMessageTime=itemView.findViewById(R.id.single_user_time_text);
         }
     }
 

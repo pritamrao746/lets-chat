@@ -5,8 +5,6 @@ import com.google.firebase.database.ServerValue;
 public class ChatUserProfie {
     private String chat_id;
     private String userId;
-    private String user_name;
-    private String thumb_image;
     private long  last_message_time;
     private String last_message;
     private String sender;
@@ -31,21 +29,7 @@ public class ChatUserProfie {
     public ChatUserProfie() {
     }
 
-    public String getUser_name() {
-        return user_name;
-    }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
-    }
-
-    public String getThumb_image() {
-        return thumb_image;
-    }
-
-    public void setThumb_image(String thumb_image) {
-        this.thumb_image = thumb_image;
-    }
 
     public long getLast_message_time() {
         return last_message_time;

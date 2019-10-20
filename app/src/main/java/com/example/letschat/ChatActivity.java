@@ -1,6 +1,7 @@
 package com.example.letschat;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -77,6 +78,10 @@ public class ChatActivity extends AppCompatActivity {
 
     String mLastMessageKey="";
 
+    //Progress Dialog
+    private ProgressDialog mProgress;
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -91,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onStart();
         mRootreff.child("users").child(mCurrentUser).child("online").setValue(0);
 
+
     }
 
     @Override
@@ -101,8 +107,13 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        mProgress = new ProgressDialog(this);
+
+
         mChatUser=getIntent().getStringExtra("userId");
         mCurrentUser= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
 
         mRootreff= FirebaseDatabase.getInstance().getReference();
         mStoragRef= FirebaseStorage.getInstance().getReference();
@@ -318,7 +329,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 if(position==2)
                 {
-                    Toast.makeText(ChatActivity.this,"option three selected",Toast.LENGTH_LONG).show();
+
 
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -330,7 +341,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 if(position==3)
                 {
-                    Toast.makeText(ChatActivity.this,"option four selected",Toast.LENGTH_LONG).show();
+
                     Intent map = new Intent(ChatActivity.this,MapActivity.class);
                     map.putExtra("chatId",mChatId);
 
@@ -358,6 +369,8 @@ public class ChatActivity extends AppCompatActivity {
 
             ////it's image
             if(requestCode==0){
+
+                showProgressbar("uploding files","image");
                  final Uri imageUri =data.getData();  // Url of the uploaded image
                 String uniqueKey =mRootreff.push().getKey();
                 final StorageReference filePath =mStoragRef.child("Conversation").child("images").child(uniqueKey+".jpg");
@@ -378,17 +391,12 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
-
-
             }
 
-            if(requestCode==1){
+            if(requestCode==1){  ////its pdf
 
 
-
+                showProgressbar("uploding files","pdf");
 
                 final Uri pdfUri =data.getData();  // Url of the uploaded image
                 String uniqueKey =mRootreff.push().getKey();
@@ -525,14 +533,21 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                   String message =dataSnapshot.child("message").getValue().toString();         ////dynamically seen status
+
+                long timestamp= (long) dataSnapshot.child("time").getValue();       ///dynamically chage seen tag
+
+
+
+
                 int i=0;
-                    for(;i<mConversationList.size();i++){
-                        if(mConversationList.get(i).getMessage().equals(message)){
+                int k=mConversationList.size();
+                    for(;i  < mConversationList.size();i++){
+                        if(mConversationList.get(i).getTime()==timestamp ||i==mConversationList.size()-1){
                             break;
                         }
                     }
-                    if(message.equals(mConversationList.get(i).getMessage())){
+                    if("true".equals(dataSnapshot.child("seen").getValue().toString())){
+
                         mConversationList.get(i).setSeen("true");
                         messageAdapter.notifyDataSetChanged();
                     }
@@ -604,9 +619,28 @@ public class ChatActivity extends AppCompatActivity {
             mRootreff.child("chats").child(mChatUser).child(mCurrentUser).child("seen").setValue("false");
 
 
+            dismissProgresbar();
+
         }
 
     }
+
+
+    void showProgressbar(String title,String message){
+        //Progress Bar
+        mProgress.setTitle(title);
+        mProgress.setMessage("wait while we  upload " +message+"file ");
+        mProgress.setCanceledOnTouchOutside(false);
+        mProgress.show();
+
+    }
+
+
+    void dismissProgresbar(){
+        mProgress.dismiss();
+    }
+
+
 
 
 
