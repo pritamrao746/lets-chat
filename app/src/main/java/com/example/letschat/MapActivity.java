@@ -1,6 +1,7 @@
 package com.example.letschat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,7 @@ public class MapActivity extends AppCompatActivity {
     public static String currentLocation;     // / / / /some shit
    private Button shareBtn;
 
+    private ProgressDialog mProgress;
 
     DatabaseReference mRootreff;
     DatabaseReference mChatRef;
@@ -52,7 +55,7 @@ public class MapActivity extends AppCompatActivity {
         mChatRef=mRootreff.child("conversation").child(mChatId);
 
 
-
+        mProgress=new ProgressDialog(this);
 
         shareBtn = (Button)findViewById(R.id.share_loc);
 
@@ -62,9 +65,16 @@ public class MapActivity extends AppCompatActivity {
             @Override
                 public void onClick(View view) {
 
+
+                //Progress Bar
+                mProgress.setTitle("sharing location");
+                mProgress.setMessage("Please wait while we share your location");
+                mProgress.setCanceledOnTouchOutside(false);
+                mProgress.show();
+
             shareLocation();
 
-
+            finish();
                 }
         });
 
@@ -190,7 +200,7 @@ public class MapActivity extends AppCompatActivity {
 
 
 
-
+            mProgress.dismiss();
 
 
 
