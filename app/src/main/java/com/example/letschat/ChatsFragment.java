@@ -88,9 +88,6 @@ public class ChatsFragment extends Fragment {
                    mChatUserList.add(0,p);
                    adapter.notifyDataSetChanged();
 
-
-
-
                }
 
            }

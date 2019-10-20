@@ -103,8 +103,6 @@ public class AllUserActivity extends AppCompatActivity {
         
         mDatabaseReferance.child(current_user.getUid()).child("online").setValue(0);
 
-
-
     }
 
     @Override
@@ -120,7 +118,5 @@ public class AllUserActivity extends AppCompatActivity {
         adapter=null;
 
     }
-
-
 
 }

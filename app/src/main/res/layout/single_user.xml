@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/default_status"
         app:layout_constraintStart_toEndOf="@+id/singleUserDisplaImage"
         app:layout_constraintTop_toBottomOf="@+id/singleUserDisplayName" />
@@ -63,9 +63,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="hh:mm"
-        android:textStyle="bold"
-        android:visibility="gone"
+        android:text="hh:mm am"
+        android:textSize="12sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

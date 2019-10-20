@@ -67,7 +67,7 @@ public class MapActivity extends AppCompatActivity {
 
 
                 //Progress Bar
-                mProgress.setTitle("sharing location");
+                mProgress.setTitle("Sharing Location");
                 mProgress.setMessage("Please wait while we share your location");
                 mProgress.setCanceledOnTouchOutside(false);
                 mProgress.show();

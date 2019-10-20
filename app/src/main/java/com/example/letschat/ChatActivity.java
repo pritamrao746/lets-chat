@@ -641,10 +641,4 @@ public class ChatActivity extends AppCompatActivity {
         mProgress.dismiss();
     }
 
-
-
-
-
-
-
 }

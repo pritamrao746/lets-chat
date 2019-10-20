@@ -61,7 +61,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         String messageTime =TimeAgo.hhMM(userList.get(position).getLast_message_time());
 
 
-
+/*
         if(mCurrentUser.equals(userList.get(position).getSender())){
 
             if("true".equals(userList.get(position).getSeen()))
@@ -70,7 +70,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
                 lastMessage="*  "+lastMessage;
 
         }
-
+*/
         holder.lastMessage.setText(lastMessage);
         holder.lastMessageTime.setVisibility(View.VISIBLE);
         holder.lastMessageTime.setText(messageTime);
