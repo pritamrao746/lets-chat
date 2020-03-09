@@ -2,10 +2,10 @@
 ## Chatting and Social Media Application
 
 **Android application with following features :-**
-* 1]Chatting
-* 2]File Sharing
-* 3]Real time location sharing
-* 4]Online Presence system
+* Chatting
+* File Sharing
+* Real time location sharing
+* Online Presence system
 
 
 **Idea behind the app :**
