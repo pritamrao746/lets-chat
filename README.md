@@ -6,6 +6,7 @@ This is a mobile application built with android studio and firebase as backend w
 * Android Material Designs for UI
 * Finding friends online
 * Private Messaging
+* Data Compression for big size file sharing
 * High quality file sharing (images,pdf,docx)
 * Real time location sharing
 * Online Presence system (whether other users are online or not)
@@ -13,6 +14,8 @@ This is a mobile application built with android studio and firebase as backend w
 * Last seen of the user
 * Emoji support during chatting
 * Ability to update Status and profile picture
+
+## Some pictures demonstrating key features
 
 
 
