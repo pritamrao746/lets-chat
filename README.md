@@ -2,7 +2,7 @@
 This is a mobile application built with android studio and firebase as backend which includes social media functionalities along with user-friendly ui, real-time chatting experience, and many more.<br>
 
 <br>
-<img src="imgs_readme/logo.png" >
+<img align="right" src="imgs_readme/logo.png" >
 
 ## Key Features
 * Android Material Designs for UI
