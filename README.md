@@ -13,6 +13,7 @@ This is a mobile application built with android studio and firebase as backend w
 * Read receipts (message read by the other user or not)
 * Last seen of the user
 * Emoji support during chatting
+* Dynamic update of UI (based on time of message latest first)
 * Ability to update Status and profile picture
 
 ## Some pictures demonstrating key features
