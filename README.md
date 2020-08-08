@@ -31,19 +31,34 @@ Chat Fragment          |  Chat Fragment           |  Loaction Sharing
 
 File Sharing          |  User Setting           |  Change Profile
 :-------------------------:|:-------------------------:|:-------------------------:
-| <img src="imgs_readme/chat1.png" width="270">  |<img src="imgs_readme/chat2.png" width="270"> | <img src="imgs_readme/location.jpg" width="270"> 
+| <img src="imgs_readme/share.png" width="270">  |<img src="imgs_readme/user_settings.png" width="270"> | <img src="imgs_readme/prf.png" width="270"> 
+
+<br>
+
+## Technologies and Tools Used
+- Android Studio (Java)
+- Firebase Database
+- Firebase Storage
+- Google maps api 
+- Zelory Compressor
+- Git for version control 
+
+## Language Used - Java
+- Different OOP concepts were used like Inheritance, Encapsulation , Abstraction ,Polymorphism ,etc
+- Multithreading was used for real time user experience.
 
 
+## Getting Started
+- You need Android Studio installed along with java jdk.
+- Copy the clone url and select get from version control on android studio.
+- Paste the clone url link into url section and hit clone.
+- Install all the dependecies which android studio asks and you are all done.
 
 
+## Acknowledgments
+**We are very thankful to all the contributors of theses APIs which made our jobs easier.**
+* [Hdodenhof](https://github.com/hdodenhof/CircleImageView) - To view images in oval shape.
+* [Image Loader & Cropper](https://github.com/ArthurHub/Android-Image-Cropper) - To load image from device and cropping it in square shape.
+* [Picasso](https://github.com/square/picasso) - Image downloading and caching library for Android.
 
-
-
-
-
-
-
-
-**Idea behind the app :**
-
-> It incorporates social media functionality where one can send friend request to other users or accept friend requests of other users. After that one can chat with the users in their friend list .
+**Any suggestions or improvement are welcome..**
