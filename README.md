@@ -20,7 +20,7 @@ This is a mobile application built with android studio and firebase as backend w
 
 Login Page          |  Home Page
 :-------------------------:|:-------------------------:
-![](https://github.com/pritamrao746/lets-chat/blob/master/imgs_readme/login.png)  |![](https://github.com/pritamrao746/lets chat/blob/master/imgs_readme/home.png)
+| ![](imgs_readme/login.png)  |![](imgs_readme/home.png) |
 
 
 
