@@ -1,4 +1,4 @@
-# Lets-Chat &nbsp; &nbsp; <img src="imgs_readme/nlogo.png" >
+# Lets-Chat &nbsp; <img src="imgs_readme/nlogo.png" width="50">
 This is a mobile application built with android studio and firebase as backend which includes social media functionalities along with user-friendly ui, real-time chatting experience, and many more 
 
 ## Key Features
@@ -17,11 +17,21 @@ This is a mobile application built with android studio and firebase as backend w
 
 ## Some pictures demonstrating key features
 
-Login Page          |  Home Page
-:-------------------------:|:-------------------------:
-| <img src="imgs_readme/login.png" width="270">  |!<img src="imgs_readme/home.png" width="270"> |
+Login Page          |  Home Page          |  Find Friends
+:-------------------------:|:-------------------------:|:-------------------------:
+| <img src="imgs_readme/login.png" width="270">  |<img src="imgs_readme/home.png" width="270"> | <img src="imgs_readme/find-friends.png" width="270"> 
 
+<br>
 
+Chat Fragment          |  Chat Fragment           |  Loaction Sharing
+:-------------------------:|:-------------------------:|:-------------------------:
+| <img src="imgs_readme/chat1.png" width="270">  |<img src="imgs_readme/chat2.png" width="270"> | <img src="imgs_readme/location.jpg" width="270"> 
+
+<br>
+
+File Sharing          |  User Setting           |  Change Profile
+:-------------------------:|:-------------------------:|:-------------------------:
+| <img src="imgs_readme/chat1.png" width="270">  |<img src="imgs_readme/chat2.png" width="270"> | <img src="imgs_readme/location.jpg" width="270"> 
 
 
 
