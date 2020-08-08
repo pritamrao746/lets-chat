@@ -18,7 +18,7 @@ This is a mobile application built with android studio and firebase as backend w
 
 ## Some pictures demonstrating key features
 
-<img src="https://github.com/pritamrao746/lets-chat/blob/master/imgs_readme/login.png"  width = 540 height=1053>
+<img src="https://git.io/JJ1Z2" width="270" height="500"/>  <img src="https://git.io/JJ1Z2" width = "270" height="500"/>
 
 
 
