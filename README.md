@@ -1,8 +1,5 @@
-# Lets-Chat 
-This is a mobile application built with android studio and firebase as backend which includes social media functionalities along with user-friendly ui, real-time chatting experience, and many more.<br>
-
-<br>
-<img align="right" src="imgs_readme/logo.png" >
+# Lets-Chat &nbsp; &nbsp; <img src="imgs_readme/nlogo.png" >
+This is a mobile application built with android studio and firebase as backend which includes social media functionalities along with user-friendly ui, real-time chatting experience, and many more 
 
 ## Key Features
 * Android Material Designs for UI
