@@ -1,11 +1,21 @@
 # lets-chat
-## Chatting and Social Media Application
+This is a mobile application built with android and firebase as backend which includes social media functionalities along with user-friendly ui, real-time chatting experience, and many more.
 
-**Android application with following features :-**
-* Chatting
-* File Sharing
+
+
+**Key Features**
+* Android Material Designs for UI
+* Finding friends online
+* Private Messaging
+* High quality file sharing (images,pdf,docx)
 * Real time location sharing
-* Online Presence system
+* Online Presence system (whether other users are online or not)
+* Read receipts (message read by the other user or not)
+* Last seen of the user
+* Emoji support during chatting
+* Ability to update Status and profile picture
+
+
 
 
 **Idea behind the app :**
